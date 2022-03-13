@@ -7,7 +7,9 @@ const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const router = require('koa-router');
 const requireDirectory = require('require-directory');
-
+const koajwt = require('koa-jwt');
+const { jwtSecret } = require('./config/secret');
+const token = require('./middlewares/token');
 // error handler
 onerror(app);
 
@@ -27,6 +29,16 @@ app.use(
   })
 );
 
+app.use(token());
+
+app.use(
+  koajwt({
+    secret: jwtSecret,
+  }).unless({
+    path: [/\/users\/login/],
+  })
+);
+
 // logger
 app.use(async (ctx, next) => {
   const start = new Date();
@@ -37,7 +49,7 @@ app.use(async (ctx, next) => {
 
 // routes
 requireDirectory(module, './routes', {
-  visit: (obj) => {
+  visit: obj => {
     if (obj instanceof router) {
       app.use(obj.routes());
     }
