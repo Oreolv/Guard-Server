@@ -16,6 +16,10 @@ const users = sequelize.define(
     realName: Sequelize.STRING(8),
     roleName: Sequelize.STRING(20),
     roleValue: Sequelize.STRING(20),
+    avatar: Sequelize.STRING(255),
+    cname: Sequelize.STRING(20), // 所属社区
+    rname: Sequelize.STRING(20), // 所属小区
+    bname: Sequelize.STRING(20), // 所属楼栋
   },
   {
     timestamps: false,
@@ -24,7 +28,7 @@ const users = sequelize.define(
 );
 
 (async () => {
-  await users.sync();
+  await users.sync({ alter: true });
 })();
 
 module.exports = users;
