@@ -1,7 +1,7 @@
 class BaseModel {
-  constructor(message, data) {
-    if (data) {
-      this.data = data;
+  constructor(message, result) {
+    if (result) {
+      this.result = result;
     }
     if (message) {
       this.message = message;
@@ -10,20 +10,20 @@ class BaseModel {
 }
 
 class SuccessModel extends BaseModel {
-  constructor(message, data) {
-    super(message, data);
-    this.errcode = 0;
+  constructor(message, result) {
+    super(message, result);
+    this.code = 0;
   }
 }
 
 class ErrorModel extends BaseModel {
-  constructor(message, errcode) {
+  constructor(message, code) {
     super(message);
-    if (!errcode) {
-      this.errcode = 500;
+    if (!code) {
+      this.code = 500;
       return;
     }
-    this.errcode = errcode;
+    this.code = code;
   }
 }
 
