@@ -11,7 +11,7 @@ module.exports = function () {
       if (token) {
         const payload = await verify(token.split(' ')[1], jwtSecret);
         ctx.user = {
-          openid: payload.openid,
+          id: payload.id,
         };
       }
       await next();
