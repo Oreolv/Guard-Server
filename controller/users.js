@@ -37,4 +37,26 @@ const login = async (username, password) => {
   }
 };
 
-module.exports = { login };
+const getUserInfo = async id => {
+  const ret = await users.findOne({
+    where: { id: id },
+  });
+  const result = {
+    userId: ret.id,
+    username: ret.username,
+    realName: ret.realName,
+    avatar: ret.avatar,
+    roles: [
+      {
+        roleName: ret.roleName,
+        roleValue: ret.roleValue,
+      },
+    ],
+    cname: ret.cname,
+    rname: ret.rname,
+    bname: ret.bname,
+  };
+  return new SuccessModel('获取成功', result);
+};
+
+module.exports = { login, getUserInfo };
