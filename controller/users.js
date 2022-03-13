@@ -10,7 +10,7 @@ const login = async (username, password) => {
   const ret = await users.findOne({
     where: { username: username },
   });
-  if (ret.length == 0) {
+  if (!ret) {
     return new ErrorModel('用户不存在');
   }
   if (ret.password === password) {
