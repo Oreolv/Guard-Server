@@ -24,4 +24,18 @@ const createNewRole = async (roleName, roleValue, description) => {
   });
   return new SuccessModel('创建成功', roles);
 };
-module.exports = { getRoleList, createNewRole };
+
+const removeRole = async id => {
+  const ret = await role.destroy({
+    where: {
+      id: id,
+    },
+  });
+  if (ret) {
+    return new SuccessModel('删除成功');
+  } else {
+    return new ErrorModel('用户不存在');
+  }
+};
+
+module.exports = { getRoleList, createNewRole, removeRole };
