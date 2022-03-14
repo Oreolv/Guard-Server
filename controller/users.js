@@ -17,6 +17,7 @@ const login = async (username, password) => {
     const token = jsonwebtoken.sign(
       {
         id: ret.id,
+        roleValue: ret.roleValue,
       },
       jwtSecret,
       { expiresIn: '30d' } // zeit/ms规范
