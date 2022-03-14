@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
 
-const authority = sequelize.define(
-  'authority',
+const role = sequelize.define(
+  'role',
   {
     id: {
       type: Sequelize.INTEGER(20),
@@ -23,7 +23,7 @@ const authority = sequelize.define(
 );
 
 (async () => {
-  await authority.sync({ alter: true });
+  await role.sync({ alter: true });
 })();
 
-module.exports = authority;
+module.exports = role;
