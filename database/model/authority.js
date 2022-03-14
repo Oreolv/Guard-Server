@@ -14,6 +14,7 @@ const authority = sequelize.define(
     roleName: Sequelize.STRING(20),
     roleValue: Sequelize.STRING(20),
     description: Sequelize.STRING(20),
+    createTime: Sequelize.DATE(),
   },
   {
     timestamps: false,
