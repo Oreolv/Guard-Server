@@ -2,7 +2,7 @@ const role = require('../database/model/role');
 const { SuccessModel, ErrorModel } = require('../model/response');
 
 const getRoleList = async roleValue => {
-  if (roleValue !== 'super') {
+  if (roleValue !== 'super' && roleValue !== 'test') {
     return new ErrorModel('无权查看');
   }
   const ret = await role.findAll();
