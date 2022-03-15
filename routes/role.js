@@ -3,6 +3,7 @@ const {
   getRoleList,
   createNewRole,
   removeRole,
+  updateRole,
 } = require('../controller/role');
 router.prefix('/role');
 
@@ -20,6 +21,12 @@ router.post('/createNewRole', async function (ctx, next) {
 router.delete('/removeRole', async function (ctx, next) {
   const { id } = ctx.query;
   const result = await removeRole(id);
+  ctx.body = result;
+});
+
+router.put('/updateRole', async function (ctx, next) {
+  const { id, roleName, roleValue, description } = ctx.request.body;
+  const result = await updateRole(id, roleName, roleValue, description);
   ctx.body = result;
 });
 

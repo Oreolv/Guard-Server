@@ -38,4 +38,23 @@ const removeRole = async id => {
   }
 };
 
-module.exports = { getRoleList, createNewRole, removeRole };
+const updateRole = async (id, roleName, roleValue, description) => {
+  const roles = await role.findAll({
+    where: { roleValue: roleValue },
+  });
+  const unique = roles.some(i => i.id !== id);
+  if (unique) {
+    return new ErrorModel('该角色值已存在');
+  }
+  const result = await role.update(
+    { roleName: roleName, roleValue: roleValue, description: description },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+};
+
+module.exports = { getRoleList, createNewRole, removeRole, updateRole };
