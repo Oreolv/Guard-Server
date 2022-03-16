@@ -10,6 +10,8 @@ const requireDirectory = require('require-directory');
 const koajwt = require('koa-jwt');
 const { jwtSecret } = require('./config/secret');
 const token = require('./middlewares/token');
+const path = require('path');
+const koaBody = require('koa-body');
 // error handler
 onerror(app);
 
@@ -36,6 +38,16 @@ app.use(
     secret: jwtSecret,
   }).unless({
     path: [/\/login/],
+  })
+);
+
+app.use(
+  koaBody({
+    multipart: true,
+    formidable: {
+      uploadDir: path.join(__dirname, './static'),
+      keepExtensions: true,
+    },
   })
 );
 
