@@ -61,4 +61,15 @@ const getUserInfo = async id => {
   return new SuccessModel('获取成功', result);
 };
 
-module.exports = { login, getUserInfo };
+const updateUserInfo = async (id, realName, uphone) => {
+  const result = await users.update(
+    { realName: realName, uphone: uphone },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+};
+module.exports = { login, getUserInfo, updateUserInfo };
