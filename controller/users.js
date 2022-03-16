@@ -53,6 +53,7 @@ const getUserInfo = async id => {
         roleValue: ret.roleValue,
       },
     ],
+    uphone: ret.uphone,
     cname: ret.cname,
     rname: ret.rname,
     bname: ret.bname,
