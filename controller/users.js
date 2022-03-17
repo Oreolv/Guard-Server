@@ -72,4 +72,17 @@ const updateUserInfo = async (id, realName, uphone) => {
   );
   return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
 };
-module.exports = { login, getUserInfo, updateUserInfo };
+
+const updateUserAvatar = async (id, avatar) => {
+  const result = await users.update(
+    { avatar: avatar },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+};
+
+module.exports = { login, getUserInfo, updateUserInfo, updateUserAvatar };

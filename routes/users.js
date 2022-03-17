@@ -1,5 +1,10 @@
 const router = require('koa-router')();
-const { login, getUserInfo, updateUserInfo } = require('../controller/users');
+const {
+  login,
+  getUserInfo,
+  updateUserInfo,
+  updateUserAvatar,
+} = require('../controller/users');
 router.prefix('/users');
 
 router.post('/login', async function (ctx, next) {
@@ -18,6 +23,14 @@ router.put('/updateUserInfo', async function (ctx, next) {
   const userId = ctx.user.id;
   const { realName, uphone } = ctx.request.body;
   const result = await updateUserInfo(userId, realName, uphone);
+  ctx.body = result;
+});
+
+router.put('/updateUserAvatar', async function (ctx, next) {
+  console.log(ctx.request.body);
+  const userId = ctx.user.id;
+  const { avatar } = ctx.request.body;
+  const result = await updateUserAvatar(userId, avatar);
   ctx.body = result;
 });
 
