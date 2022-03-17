@@ -85,4 +85,28 @@ const updateUserAvatar = async (id, avatar) => {
   return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
 };
 
-module.exports = { login, getUserInfo, updateUserInfo, updateUserAvatar };
+const updateUserPassword = async (id, passwordOld, passwordNew) => {
+  const ret = await users.findOne({
+    where: { id: id },
+  });
+  if (ret.password !== passwordOld) {
+    return new ErrorModel('当前账户密码错误');
+  }
+  const result = await users.update(
+    { password: passwordNew },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+};
+
+module.exports = {
+  login,
+  getUserInfo,
+  updateUserInfo,
+  updateUserAvatar,
+  updateUserPassword,
+};

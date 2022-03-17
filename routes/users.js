@@ -4,6 +4,7 @@ const {
   getUserInfo,
   updateUserInfo,
   updateUserAvatar,
+  updateUserPassword,
 } = require('../controller/users');
 router.prefix('/users');
 
@@ -31,6 +32,13 @@ router.put('/updateUserAvatar', async function (ctx, next) {
   const userId = ctx.user.id;
   const { avatar } = ctx.request.body;
   const result = await updateUserAvatar(userId, avatar);
+  ctx.body = result;
+});
+
+router.put('/updateUserPassword', async function (ctx, next) {
+  const userId = ctx.user.id;
+  const { passwordOld, passwordNew } = ctx.request.body;
+  const result = await updateUserPassword(userId, passwordOld, passwordNew);
   ctx.body = result;
 });
 
