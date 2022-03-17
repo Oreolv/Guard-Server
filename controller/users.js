@@ -70,7 +70,9 @@ const updateUserInfo = async (id, realName, uphone) => {
       },
     }
   );
-  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+  return result[0]
+    ? new SuccessModel('用户信息修改成功')
+    : new ErrorModel('用户信息修改失败');
 };
 
 const updateUserAvatar = async (id, avatar) => {
@@ -82,7 +84,9 @@ const updateUserAvatar = async (id, avatar) => {
       },
     }
   );
-  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+  return result[0]
+    ? new SuccessModel('用户头像修改成功')
+    : new ErrorModel('用户头像修改失败');
 };
 
 const updateUserPassword = async (id, passwordOld, passwordNew) => {
@@ -100,7 +104,9 @@ const updateUserPassword = async (id, passwordOld, passwordNew) => {
       },
     }
   );
-  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+  return result[0]
+    ? new SuccessModel('用户密码修改成功')
+    : new ErrorModel('用户密码修改失败');
 };
 
 module.exports = {
