@@ -61,6 +61,13 @@ const getUserInfo = async id => {
   return new SuccessModel('获取成功', result);
 };
 
+const getUserList = async () => {
+  const ret = await users.findAll({
+    attributes: [['id', 'userId'], 'username', 'realName', 'roleValue'],
+  });
+  return new SuccessModel('获取成功', ret);
+};
+
 const updateUserInfo = async (id, realName, uphone) => {
   const result = await users.update(
     { realName: realName, uphone: uphone },
@@ -112,6 +119,7 @@ const updateUserPassword = async (id, passwordOld, passwordNew) => {
 module.exports = {
   login,
   getUserInfo,
+  getUserList,
   updateUserInfo,
   updateUserAvatar,
   updateUserPassword,

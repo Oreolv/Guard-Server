@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const {
   login,
   getUserInfo,
+  getUserList,
   updateUserInfo,
   updateUserAvatar,
   updateUserPassword,
@@ -17,6 +18,11 @@ router.post('/login', async function (ctx, next) {
 router.get('/getUserInfo', async function (ctx, next) {
   const userId = ctx.user.id;
   const result = await getUserInfo(userId);
+  ctx.body = result;
+});
+
+router.get('/getUserList', async function (ctx, next) {
+  const result = await getUserList();
   ctx.body = result;
 });
 
