@@ -5,6 +5,7 @@ const {
   getUserList,
   removeUser,
   createNewUser,
+  updateUserSys,
   updateUserInfo,
   updateUserAvatar,
   updateUserPassword,
@@ -35,8 +36,21 @@ router.put('/updateUserInfo', async function (ctx, next) {
   ctx.body = result;
 });
 
+router.put('/updateUserSys', async function (ctx, next) {
+  const { id, username, realName, roleName, roleValue, uphone } =
+    ctx.request.body;
+  const result = await updateUserSys(
+    id,
+    username,
+    realName,
+    roleName,
+    roleValue,
+    uphone
+  );
+  ctx.body = result;
+});
+
 router.put('/updateUserAvatar', async function (ctx, next) {
-  console.log(ctx.request.body);
   const userId = ctx.user.id;
   const { avatar } = ctx.request.body;
   const result = await updateUserAvatar(userId, avatar);

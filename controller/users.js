@@ -89,6 +89,28 @@ const updateUserInfo = async (id, realName, uphone) => {
     : new ErrorModel('用户信息修改失败');
 };
 
+// 用户管理页面更改用户信息
+const updateUserSys = async (
+  id,
+  username,
+  realName,
+  roleName,
+  roleValue,
+  uphone
+) => {
+  const result = await users.update(
+    { id, username, realName, roleName, roleValue, uphone },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+  return result[0]
+    ? new SuccessModel('用户信息修改成功')
+    : new ErrorModel('用户信息修改失败');
+};
+
 const updateUserAvatar = async (id, avatar) => {
   const result = await users.update(
     { avatar: avatar },
@@ -165,6 +187,7 @@ module.exports = {
   getUserInfo,
   getUserList,
   createNewUser,
+  updateUserSys,
   updateUserInfo,
   removeUser,
   updateUserAvatar,
