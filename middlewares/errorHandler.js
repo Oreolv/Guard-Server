@@ -6,10 +6,15 @@ module.exports = function () {
       await next();
     } catch (err) {
       console.log(err);
-      if (err.name === 'SequelizeUniqueConstraintError') {
-        ctx.body = new ErrorModel(`该${ctx.errorKey}已存在`);
-      } else {
-        ctx.body = new ErrorModel(err.message);
+      switch (err.name) {
+        case 'SequelizeUniqueConstraintError':
+          ctx.body = new ErrorModel(`该${ctx.errorKey}已存在`);
+          break;
+        case 'SequelizeDatabaseError':
+          ctx.body = new ErrorModel('数据库查询失败');
+          break;
+        default:
+          ctx.body = new ErrorModel(err.message);
       }
     }
   };
