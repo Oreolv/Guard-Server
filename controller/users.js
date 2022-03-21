@@ -147,12 +147,26 @@ const createNewUser = async (
   return new SuccessModel('创建成功', user);
 };
 
+const removeUser = async id => {
+  const ret = await users.destroy({
+    where: {
+      id: id,
+    },
+  });
+  if (ret) {
+    return new SuccessModel('删除成功');
+  } else {
+    return new ErrorModel('用户不存在');
+  }
+};
+
 module.exports = {
   login,
   getUserInfo,
   getUserList,
   createNewUser,
   updateUserInfo,
+  removeUser,
   updateUserAvatar,
   updateUserPassword,
 };

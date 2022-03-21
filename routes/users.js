@@ -3,6 +3,7 @@ const {
   login,
   getUserInfo,
   getUserList,
+  removeUser,
   createNewUser,
   updateUserInfo,
   updateUserAvatar,
@@ -58,6 +59,12 @@ router.post('/createNewUser', async function (ctx, next) {
     roleValue,
     uphone
   );
+  ctx.body = result;
+});
+
+router.delete('/removeUser', async function (ctx, next) {
+  const { id } = ctx.query;
+  const result = await removeUser(id);
   ctx.body = result;
 });
 
