@@ -37,6 +37,7 @@ router.put('/updateUserInfo', async function (ctx, next) {
 });
 
 router.put('/updateUserSys', async function (ctx, next) {
+  ctx.errorKey = '用户名';
   const { id, username, realName, roleName, roleValue, uphone } =
     ctx.request.body;
   const result = await updateUserSys(
@@ -65,6 +66,7 @@ router.put('/updateUserPassword', async function (ctx, next) {
 });
 
 router.post('/createNewUser', async function (ctx, next) {
+  ctx.errorKey = '用户名';
   const { username, realName, roleName, roleValue, uphone } = ctx.request.body;
   const result = await createNewUser(
     username,

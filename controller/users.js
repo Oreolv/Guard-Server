@@ -152,12 +152,6 @@ const createNewUser = async (
   roleValue,
   uphone
 ) => {
-  const unique = await users.findOne({
-    where: { username },
-  });
-  if (unique) {
-    return new ErrorModel('用户名已存在');
-  }
   const user = await users.create({
     username,
     password: '123456',

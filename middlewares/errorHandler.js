@@ -5,12 +5,11 @@ module.exports = function () {
     try {
       await next();
     } catch (err) {
-      // TODO: 此错误提示文本不通用
-      //   if (error.name === 'SequelizeUniqueConstraintError') {
-      //     return new ErrorModel('该角色值已存在');
-      //   }
-      ctx.status = 500;
-      ctx.body = new ErrorModel(err.message, 500);
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        ctx.body = new ErrorModel(`该${ctx.errorKey}已存在`);
+      } else {
+        ctx.body = new ErrorModel(err.message);
+      }
     }
   };
 };

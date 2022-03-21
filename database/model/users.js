@@ -11,7 +11,10 @@ const users = sequelize.define(
       unique: true,
       autoIncrement: true,
     },
-    username: Sequelize.STRING(20),
+    username: {
+      type: Sequelize.STRING(20),
+      unique: true,
+    },
     password: Sequelize.STRING(20),
     realName: Sequelize.STRING(8),
     roleName: Sequelize.STRING(20),
