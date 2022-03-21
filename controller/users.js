@@ -106,9 +106,7 @@ const updateUserSys = async (
       },
     }
   );
-  return result[0]
-    ? new SuccessModel('用户信息修改成功')
-    : new ErrorModel('用户信息修改失败');
+  return new SuccessModel('用户信息修改成功', result);
 };
 
 const updateUserAvatar = async (id, avatar) => {

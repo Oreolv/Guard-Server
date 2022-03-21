@@ -41,7 +41,7 @@ const updateRole = async (id, roleName, roleValue, description) => {
       },
     }
   );
-  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+  return new SuccessModel('修改成功', result);
 };
 
 module.exports = { getRoleList, createNewRole, removeRole, updateRole };
