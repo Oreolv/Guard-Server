@@ -31,4 +31,16 @@ const createNewCommunity = async (name, custodian, description) => {
   return new SuccessModel('创建成功');
 };
 
-module.exports = { getCommunityList, createNewCommunity };
+const removeCommunity = async id => {
+  const ret = await community.destroy({
+    where: {
+      id: id,
+    },
+  });
+  if (ret) {
+    return new SuccessModel('删除成功');
+  } else {
+    return new ErrorModel('社区不存在');
+  }
+};
+module.exports = { getCommunityList, createNewCommunity, removeCommunity };

@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const {
   getCommunityList,
   createNewCommunity,
+  removeCommunity,
 } = require('../controller/community');
 router.prefix('/community');
 
@@ -13,6 +14,12 @@ router.get('/getCommunityList', async function (ctx, next) {
 router.post('/createNewCommunity', async function (ctx, next) {
   const { name, custodian, description } = ctx.request.body;
   const result = await createNewCommunity(name, custodian, description);
+  ctx.body = result;
+});
+
+router.delete('/removeCommunity', async function (ctx, next) {
+  const { id } = ctx.query;
+  const result = await removeCommunity(id);
   ctx.body = result;
 });
 
