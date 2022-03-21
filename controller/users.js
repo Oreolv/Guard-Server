@@ -123,10 +123,35 @@ const updateUserPassword = async (id, passwordOld, passwordNew) => {
     : new ErrorModel('用户密码修改失败');
 };
 
+const createNewUser = async (
+  username,
+  realName,
+  roleName,
+  roleValue,
+  uphone
+) => {
+  const unique = await users.findOne({
+    where: { username },
+  });
+  if (unique) {
+    return new ErrorModel('用户名已存在');
+  }
+  const user = await users.create({
+    username,
+    password: '123456',
+    realName,
+    roleName,
+    roleValue,
+    uphone,
+  });
+  return new SuccessModel('创建成功', user);
+};
+
 module.exports = {
   login,
   getUserInfo,
   getUserList,
+  createNewUser,
   updateUserInfo,
   updateUserAvatar,
   updateUserPassword,

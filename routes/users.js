@@ -3,6 +3,7 @@ const {
   login,
   getUserInfo,
   getUserList,
+  createNewUser,
   updateUserInfo,
   updateUserAvatar,
   updateUserPassword,
@@ -45,6 +46,18 @@ router.put('/updateUserPassword', async function (ctx, next) {
   const userId = ctx.user.id;
   const { passwordOld, passwordNew } = ctx.request.body;
   const result = await updateUserPassword(userId, passwordOld, passwordNew);
+  ctx.body = result;
+});
+
+router.post('/createNewUser', async function (ctx, next) {
+  const { username, realName, roleName, roleValue, uphone } = ctx.request.body;
+  const result = await createNewUser(
+    username,
+    realName,
+    roleName,
+    roleValue,
+    uphone
+  );
   ctx.body = result;
 });
 
