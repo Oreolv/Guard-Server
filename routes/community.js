@@ -3,6 +3,7 @@ const {
   getCommunityList,
   createNewCommunity,
   removeCommunity,
+  updateCommunity,
 } = require('../controller/community');
 router.prefix('/community');
 
@@ -20,6 +21,12 @@ router.post('/createNewCommunity', async function (ctx, next) {
 router.delete('/removeCommunity', async function (ctx, next) {
   const { id } = ctx.query;
   const result = await removeCommunity(id);
+  ctx.body = result;
+});
+
+router.put('/updateCommunity', async function (ctx, next) {
+  const { id, name, custodian, description } = ctx.request.body;
+  const result = await updateCommunity(id, name, custodian, description);
   ctx.body = result;
 });
 
