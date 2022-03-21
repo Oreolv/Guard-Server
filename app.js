@@ -8,6 +8,7 @@ const router = require('koa-router');
 const requireDirectory = require('require-directory');
 const koajwt = require('koa-jwt');
 const { jwtSecret } = require('./config/secret');
+const error = require('./middlewares/errorHandler');
 const token = require('./middlewares/tokenHandler');
 const path = require('path');
 const koaBody = require('koa-body');
@@ -25,6 +26,7 @@ app.use(
   })
 );
 
+app.use(error());
 app.use(token());
 
 app.use(
