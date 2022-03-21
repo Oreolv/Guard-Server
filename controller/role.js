@@ -10,19 +10,21 @@ const getRoleList = async roleValue => {
 };
 
 const createNewRole = async (roleName, roleValue, description) => {
-  const unique = await role.findOne({
-    where: { roleValue: roleValue },
-  });
-  if (unique) {
-    return new ErrorModel('该角色值已存在');
+  try {
+    const roles = await role.create({
+      roleName: roleName,
+      roleValue: roleValue,
+      description: description,
+      createTime: new Date(),
+    });
+    return new SuccessModel('创建成功', roles);
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return new ErrorModel('该角色值已存在');
+    } else {
+      return new ErrorModel('error.name');
+    }
   }
-  const roles = await role.create({
-    roleName: roleName,
-    roleValue: roleValue,
-    description: description,
-    createTime: new Date(),
-  });
-  return new SuccessModel('创建成功', roles);
 };
 
 const removeRole = async id => {
@@ -39,22 +41,25 @@ const removeRole = async id => {
 };
 
 const updateRole = async (id, roleName, roleValue, description) => {
-  const roles = await role.findAll({
-    where: { roleValue: roleValue },
-  });
-  const unique = roles.some(i => i.id !== id);
-  if (unique) {
-    return new ErrorModel('该角色值已存在');
-  }
-  const result = await role.update(
-    { roleName: roleName, roleValue: roleValue, description: description },
-    {
-      where: {
-        id: id,
-      },
+  try {
+    const result = await role.update(
+      { roleName: roleName, roleValue: roleValue, description: description },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return result[0]
+      ? new SuccessModel('修改成功')
+      : new ErrorModel('修改失败');
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return new ErrorModel('该角色值已存在');
+    } else {
+      return new ErrorModel('error.name');
     }
-  );
-  return result[0] ? new SuccessModel('修改成功') : new ErrorModel('修改失败');
+  }
 };
 
 module.exports = { getRoleList, createNewRole, removeRole, updateRole };

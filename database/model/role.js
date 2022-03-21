@@ -12,7 +12,10 @@ const role = sequelize.define(
       autoIncrement: true,
     },
     roleName: Sequelize.STRING(20),
-    roleValue: Sequelize.STRING(20),
+    roleValue: {
+      type: Sequelize.STRING(20),
+      unique: true,
+    },
     description: Sequelize.STRING(20),
     createTime: Sequelize.DATE(),
   },
