@@ -63,7 +63,14 @@ const getUserInfo = async id => {
 
 const getUserList = async () => {
   const ret = await users.findAll({
-    attributes: [['id', 'userId'], 'username', 'realName', 'roleValue'],
+    attributes: [
+      ['id', 'userId'],
+      'username',
+      'realName',
+      'roleName',
+      'roleValue',
+      'uphone',
+    ],
   });
   return new SuccessModel('获取成功', ret);
 };
