@@ -25,7 +25,8 @@ router.get('/getUserInfo', async function (ctx, next) {
 });
 
 router.get('/getUserList', async function (ctx, next) {
-  const result = await getUserList();
+  const { username, roleValue } = ctx.query;
+  const result = await getUserList(username, roleValue);
   ctx.body = result;
 });
 

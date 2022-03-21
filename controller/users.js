@@ -1,3 +1,5 @@
+const sequelize = require('../database/sequelize');
+const { QueryTypes } = require('sequelize');
 const users = require('../database/model/users');
 const { SuccessModel, ErrorModel } = require('../model/response');
 const jsonwebtoken = require('jsonwebtoken');
@@ -61,17 +63,9 @@ const getUserInfo = async id => {
   return new SuccessModel('获取成功', result);
 };
 
-const getUserList = async () => {
-  const ret = await users.findAll({
-    attributes: [
-      ['id', 'userId'],
-      'username',
-      'realName',
-      'roleName',
-      'roleValue',
-      'uphone',
-    ],
-  });
+const getUserList = async (username = '', roleValue = '') => {
+  const sql = `SELECT id as userId, username, realName, roleName, roleValue,uphone FROM users WHERE (username like '%${username}%' OR '' = '${username}') AND ('' = '${roleValue}' OR roleValue = '${roleValue}')`;
+  const ret = await sequelize.query(sql, { type: QueryTypes.SELECT });
   return new SuccessModel('获取成功', ret);
 };
 
