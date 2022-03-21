@@ -1,3 +1,5 @@
+const sequelize = require('../database/sequelize');
+const { QueryTypes } = require('sequelize');
 const community = require('../database/model/community');
 const users = require('../database/model/users');
 const { SuccessModel, ErrorModel } = require('../model/response');
@@ -11,8 +13,10 @@ const getCustodianName = async id => {
   return username;
 };
 
-const getCommunityList = async () => {
-  const ret = await community.findAll();
+const getCommunityList = async (name = '', custodian) => {
+  const custodianName = custodian ? await getCustodianName(custodian) : '';
+  const sql = `SELECT id, name, custodian, description, createTime FROM community WHERE (name like '%${name}%' OR '' = '${name}') AND ('' = '${custodianName}' OR custodian = '${custodianName}')`;
+  const ret = await sequelize.query(sql, { type: QueryTypes.SELECT });
   return new SuccessModel('获取成功', ret);
 };
 

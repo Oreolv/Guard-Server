@@ -8,7 +8,8 @@ const {
 router.prefix('/community');
 
 router.get('/getCommunityList', async function (ctx, next) {
-  const result = await getCommunityList();
+  const { name, custodian } = ctx.query;
+  const result = await getCommunityList(name, custodian);
   ctx.body = result;
 });
 
