@@ -5,6 +5,7 @@ module.exports = function () {
     try {
       await next();
     } catch (err) {
+      console.log(err);
       if (err.name === 'SequelizeUniqueConstraintError') {
         ctx.body = new ErrorModel(`该${ctx.errorKey}已存在`);
       } else {
