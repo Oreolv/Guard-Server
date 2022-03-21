@@ -8,14 +8,19 @@ const {
 router.prefix('/community');
 
 router.get('/getCommunityList', async function (ctx, next) {
-  const { name, custodian } = ctx.query;
-  const result = await getCommunityList(name, custodian);
+  const { name, username } = ctx.query;
+  const result = await getCommunityList(name, username);
   ctx.body = result;
 });
 
 router.post('/createNewCommunity', async function (ctx, next) {
-  const { name, custodian, description } = ctx.request.body;
-  const result = await createNewCommunity(name, custodian, description);
+  const { name, custodian, username, description } = ctx.request.body;
+  const result = await createNewCommunity(
+    name,
+    custodian,
+    username,
+    description
+  );
   ctx.body = result;
 });
 
@@ -26,8 +31,14 @@ router.delete('/removeCommunity', async function (ctx, next) {
 });
 
 router.put('/updateCommunity', async function (ctx, next) {
-  const { id, name, custodian, description } = ctx.request.body;
-  const result = await updateCommunity(id, name, custodian, description);
+  const { id, name, custodian, username, description } = ctx.request.body;
+  const result = await updateCommunity(
+    id,
+    name,
+    custodian,
+    username,
+    description
+  );
   ctx.body = result;
 });
 
