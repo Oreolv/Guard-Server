@@ -5,5 +5,9 @@ const qiniuSecret = {
   url: 'https://img.xinyu.ink/',
   bucket: 'img-xinyu',
 };
+const weappSecret = {
+  appid: 'wxa1c02916c95fc722',
+  secret: '1ecc467c800c61cd7618100c8fbb76fb',
+};
 
-module.exports = { jwtSecret, qiniuSecret };
+module.exports = { jwtSecret, qiniuSecret, weappSecret };
