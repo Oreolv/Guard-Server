@@ -44,4 +44,24 @@ const login = async code => {
   return new ErrorModel('登陆失败');
 };
 
-module.exports = { login };
+const getUserInfo = async userId => {
+  const data = await resident.findOne({
+    where: { id: userId },
+    attributes: [
+      'uname',
+      'usex',
+      'uphone',
+      'cname',
+      'vname',
+      'bnum',
+      'hnum',
+      'hname',
+      'idCard',
+      'company',
+      'foreignStatus',
+    ],
+  });
+  return new SuccessModel('查询成功', data);
+};
+
+module.exports = { login, getUserInfo };
