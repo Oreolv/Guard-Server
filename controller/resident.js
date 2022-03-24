@@ -33,7 +33,8 @@ const login = async code => {
     const token = jsonwebtoken.sign(
       {
         userId,
-        openid,
+        openId: openid,
+        userType: 'resident',
       },
       jwtSecret,
       { expiresIn: '30d' } // zeit/ms规范

@@ -20,6 +20,7 @@ const login = async (username, password) => {
       {
         id: ret.id,
         roleValue: ret.roleValue,
+        userType: 'users',
       },
       jwtSecret,
       { expiresIn: '30d' } // zeit/ms规范

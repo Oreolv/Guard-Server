@@ -10,10 +10,23 @@ module.exports = function () {
       const token = ctx.header.authorization;
       if (token) {
         const payload = await verify(token.split(' ')[1], jwtSecret);
-        ctx.user = {
-          id: payload.id,
-          roleValue: payload.roleValue,
-        };
+        switch (payload.userType) {
+          case 'users':
+            ctx.user = {
+              id: payload.id,
+              roleValue: payload.roleValue,
+            };
+            break;
+          case 'resident':
+            ctx.user = {
+              userId: payload.userId,
+              openId: payload.openId,
+            };
+            break;
+
+          default:
+            break;
+        }
       }
     } catch (err) {
       if (err.status === 401) {
