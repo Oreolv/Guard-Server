@@ -19,22 +19,26 @@ const getOpenID = async code => {
 };
 
 const login = async code => {
+  let userId;
   const openid = await getOpenID(code);
   if (openid) {
-    const data = await resident.findAll();
-    if (data.length == 0) {
+    const data = await resident.findOne();
+    if (data == null) {
       // 新用户自动注册
       const user = await resident.create({ openid: openid });
+      userId = user.id;
+    } else {
+      userId = data.id;
     }
     const token = jsonwebtoken.sign(
       {
-        openid: openid, // token中暂时只写入openid
+        userId,
+        openid,
       },
       jwtSecret,
       { expiresIn: '30d' } // zeit/ms规范
     );
-    const profile = await resident.findAll();
-    return new SuccessModel('登陆成功', { token, profile });
+    return new SuccessModel('登陆成功', { token, userId });
   }
   return new ErrorModel('登陆失败');
 };
