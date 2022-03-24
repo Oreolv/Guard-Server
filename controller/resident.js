@@ -64,4 +64,16 @@ const getUserInfo = async userId => {
   return new SuccessModel('查询成功', data);
 };
 
-module.exports = { login, getUserInfo };
+const updateUserProfile = async (userId, avatar, nickName) => {
+  await resident.update(
+    { avatar, nickName },
+    {
+      where: {
+        id: userId,
+      },
+    }
+  );
+  return new SuccessModel('修改成功');
+};
+
+module.exports = { login, getUserInfo, updateUserProfile };

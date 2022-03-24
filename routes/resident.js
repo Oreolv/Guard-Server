@@ -1,5 +1,9 @@
 const router = require('koa-router')();
-const { login, getUserInfo } = require('../controller/resident');
+const {
+  login,
+  getUserInfo,
+  updateUserProfile,
+} = require('../controller/resident');
 router.prefix('/resident');
 
 router.post('/login', async function (ctx, next) {
@@ -11,6 +15,13 @@ router.post('/login', async function (ctx, next) {
 router.get('/getUserInfo', async function (ctx, next) {
   const { userId } = ctx.user;
   const result = await getUserInfo(userId);
+  ctx.body = result;
+});
+
+router.put('/updateUserProfile', async function (ctx, next) {
+  const { userId } = ctx.user;
+  const { avatar, nickName } = ctx.request.body;
+  const result = await updateUserProfile(userId, avatar, nickName);
   ctx.body = result;
 });
 
