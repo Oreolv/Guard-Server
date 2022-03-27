@@ -1,9 +1,11 @@
 const axios = require('axios');
+const { QueryTypes } = require('sequelize');
+const jsonwebtoken = require('jsonwebtoken');
+const sequelize = require('../database/sequelize');
 const resident = require('../database/model/resident');
+const getRecorderName = require('./users').getUserInfo;
 const { weappSecret, jwtSecret } = require('../config/secret');
 const { SuccessModel, ErrorModel } = require('../model/response');
-const jsonwebtoken = require('jsonwebtoken');
-const getRecorderName = require('./users').getUserInfo;
 
 const getOpenID = async code => {
   const { data } = await axios({
@@ -72,8 +74,9 @@ const getResidentInfo = async userId => {
   return new SuccessModel('查询成功', data);
 };
 
-const getResidentList = async () => {
-  const data = await resident.findAll();
+const getResidentList = async (uname = '', uphone = '') => {
+  const sql = `SELECT * FROM resident WHERE (uname like '%${uname}%' OR '' = '${uname}') AND ('' = '${uphone}' OR uphone = '${uphone}')`;
+  const data = await sequelize.query(sql, { type: QueryTypes.SELECT });
   return new SuccessModel('查询成功', data);
 };
 

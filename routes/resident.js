@@ -22,7 +22,8 @@ router.get('/getUserInfo', async function (ctx, next) {
 });
 
 router.get('/getResidentList', async function (ctx, next) {
-  const result = await getResidentList();
+  const { uname, uphone } = ctx.query;
+  const result = await getResidentList(uname, uphone);
   ctx.body = result;
 });
 
