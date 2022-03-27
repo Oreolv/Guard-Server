@@ -3,6 +3,7 @@ const resident = require('../database/model/resident');
 const { weappSecret, jwtSecret } = require('../config/secret');
 const { SuccessModel, ErrorModel } = require('../model/response');
 const jsonwebtoken = require('jsonwebtoken');
+const getRecorderName = require('./users').getUserInfo;
 
 const getOpenID = async code => {
   const { data } = await axios({
@@ -88,10 +89,23 @@ const updateUserProfile = async (userId, avatar, nickName) => {
   return new SuccessModel('修改成功');
 };
 
+const updateResidentInfo = async (recorder, params) => {
+  const ret = await getRecorderName(recorder);
+  params.recorder = ret.result.realName;
+  params.createTime = new Date();
+  await resident.update(params, {
+    where: {
+      id: params.id,
+    },
+  });
+  return new SuccessModel('修改成功');
+};
+
 module.exports = {
   login,
   getUserInfo,
   updateUserProfile,
+  updateResidentInfo,
   getResidentList,
   getResidentInfo,
 };

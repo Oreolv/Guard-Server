@@ -5,6 +5,7 @@ const {
   getResidentList,
   getResidentInfo,
   updateUserProfile,
+  updateResidentInfo,
 } = require('../controller/resident');
 router.prefix('/resident');
 
@@ -35,6 +36,13 @@ router.put('/updateUserProfile', async function (ctx, next) {
   const { userId } = ctx.user;
   const { avatar, nickName } = ctx.request.body;
   const result = await updateUserProfile(userId, avatar, nickName);
+  ctx.body = result;
+});
+
+router.put('/updateResidentInfo', async function (ctx, next) {
+  const { id } = ctx.user;
+  const params = ctx.request.body;
+  const result = await updateResidentInfo(id, params);
   ctx.body = result;
 });
 
