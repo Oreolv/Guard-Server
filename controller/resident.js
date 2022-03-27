@@ -64,6 +64,18 @@ const getUserInfo = async userId => {
   return new SuccessModel('查询成功', data);
 };
 
+const getResidentInfo = async userId => {
+  const data = await resident.findOne({
+    where: { id: userId },
+  });
+  return new SuccessModel('查询成功', data);
+};
+
+const getResidentList = async () => {
+  const data = await resident.findAll();
+  return new SuccessModel('查询成功', data);
+};
+
 const updateUserProfile = async (userId, avatar, nickName) => {
   await resident.update(
     { avatar, nickName },
@@ -76,4 +88,10 @@ const updateUserProfile = async (userId, avatar, nickName) => {
   return new SuccessModel('修改成功');
 };
 
-module.exports = { login, getUserInfo, updateUserProfile };
+module.exports = {
+  login,
+  getUserInfo,
+  updateUserProfile,
+  getResidentList,
+  getResidentInfo,
+};
