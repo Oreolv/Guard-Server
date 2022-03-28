@@ -62,6 +62,9 @@ const getUserInfo = async userId => {
       'idCard',
       'company',
       'foreignStatus',
+      'healthStatus',
+      'isolationStatus',
+      'accessStatus',
     ],
   });
   return new SuccessModel('查询成功', data);
