@@ -21,7 +21,7 @@ const getOpenID = async code => {
   return data.openid;
 };
 
-const login = async code => {
+const login = async (code, profile) => {
   let userId;
   const openid = await getOpenID(code);
   if (openid) {
@@ -30,6 +30,7 @@ const login = async code => {
       // 新用户自动注册
       const user = await resident.create({ openid: openid });
       userId = user.id;
+      await updateUserProfile(userId, profile);
     } else {
       userId = data.id;
     }
@@ -51,6 +52,8 @@ const getUserInfo = async userId => {
   const data = await resident.findOne({
     where: { id: userId },
     attributes: [
+      'avatar',
+      'nickName',
       'uname',
       'usex',
       'uphone',
@@ -67,6 +70,12 @@ const getUserInfo = async userId => {
       'accessStatus',
     ],
   });
+  data.dataValues.profile = {
+    avatar: data.avatar,
+    nickName: data.nickName,
+  };
+  delete data.dataValues.avatar;
+  delete data.dataValues.nickName;
   return new SuccessModel('查询成功', data);
 };
 
@@ -83,15 +92,12 @@ const getResidentList = async (uname = '', uphone = '') => {
   return new SuccessModel('查询成功', data);
 };
 
-const updateUserProfile = async (userId, avatar, nickName) => {
-  await resident.update(
-    { avatar, nickName },
-    {
-      where: {
-        id: userId,
-      },
-    }
-  );
+const updateUserProfile = async (userId, profile) => {
+  await resident.update(profile, {
+    where: {
+      id: userId,
+    },
+  });
   return new SuccessModel('修改成功');
 };
 
