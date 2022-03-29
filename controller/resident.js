@@ -50,6 +50,7 @@ const login = async (code, profile) => {
 
 const getUserInfo = async userId => {
   const data = await resident.findOne({
+    raw: true,
     where: { id: userId },
     attributes: [
       'avatar',
@@ -70,12 +71,12 @@ const getUserInfo = async userId => {
       'accessStatus',
     ],
   });
-  data.dataValues.profile = {
+  data.profile = {
     avatar: data.avatar,
     nickName: data.nickName,
   };
-  delete data.dataValues.avatar;
-  delete data.dataValues.nickName;
+  delete data.avatar;
+  delete data.nickName;
   return new SuccessModel('查询成功', data);
 };
 
