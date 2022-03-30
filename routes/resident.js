@@ -35,8 +35,8 @@ router.get('/getResidentInfo', async function (ctx, next) {
 
 router.put('/updateUserProfile', async function (ctx, next) {
   const { userId } = ctx.user;
-  const { avatar, nickName } = ctx.request.body;
-  const result = await updateUserProfile(userId, avatar, nickName);
+  const profile = ctx.request.body;
+  const result = await updateUserProfile(userId, profile);
   ctx.body = result;
 });
 

@@ -94,12 +94,14 @@ const getResidentList = async (uname = '', uphone = '') => {
 };
 
 const updateUserProfile = async (userId, profile) => {
-  await resident.update(profile, {
+  const user = await resident.findOne({
     where: {
       id: userId,
     },
   });
-  return new SuccessModel('修改成功');
+  user.set(profile);
+  await user.save();
+  return new SuccessModel('修改成功', user);
 };
 
 const updateResidentInfo = async (recorder, params) => {
