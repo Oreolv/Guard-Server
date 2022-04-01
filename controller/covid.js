@@ -25,4 +25,8 @@ const getRiskArea = () => {
   return readFile('risk_area');
 };
 
-module.exports = { getAllData, getRiskArea };
+const getRiskAreaMerge = () => {
+  return readFile('risk_area_merge');
+};
+
+module.exports = { getAllData, getRiskArea, getRiskAreaMerge };
