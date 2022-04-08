@@ -1,29 +1,35 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
+const Users = require('./users');
 
-const notice = sequelize.define(
+const Notice = sequelize.define(
   'notice',
   {
-    id: {
-      type: Sequelize.INTEGER(20),
-      primaryKey: true,
-      allowNull: false,
-      unique: true,
-      autoIncrement: true,
-    },
     content: Sequelize.TEXT('long'),
     grade: Sequelize.INTEGER(1), // 重要等级，0低级1中级2紧急
-    publisher: Sequelize.STRING(20), // 发布人
-    createTime: Sequelize.DATE(),
+    publisher: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    }, // 发布人
   },
   {
-    timestamps: false,
+    paranoid: true,
+    timestamps: true,
     freezeTableName: true,
   }
 );
 
+// 多对一，一个user可以发布多个notice
+Notice.belongsTo(Users, {
+  as: 'publisherInfo',
+  foreignKey: 'publisher',
+});
+Users.hasMany(Notice, {
+  foreignKey: 'publisher',
+});
+
 (async () => {
-  await notice.sync({ alter: true });
+  await Notice.sync({ alter: true });
 })();
 
-module.exports = notice;
+module.exports = Notice;

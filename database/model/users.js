@@ -1,16 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
 
-const users = sequelize.define(
+const Users = sequelize.define(
   'users',
   {
-    id: {
-      type: Sequelize.INTEGER(20),
-      primaryKey: true,
-      allowNull: false,
-      unique: true,
-      autoIncrement: true,
-    },
     username: {
       type: Sequelize.STRING(20),
       unique: true,
@@ -35,4 +28,4 @@ const users = sequelize.define(
 //   await users.sync({ alter: true });
 // })();
 
-module.exports = users;
+module.exports = Users;

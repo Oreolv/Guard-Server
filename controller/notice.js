@@ -1,16 +1,21 @@
 const notice = require('../database/model/notice');
 const { SuccessModel } = require('../model/response');
 const getPublisherName = require('./users').getUserInfo;
-
+const Users = require('../database/model/users');
 const getNoticeList = async () => {
-  const ret = await notice.findAll();
+  const ret = await notice.findAll({
+    include: [
+      {
+        model: Users,
+        as: 'publisherInfo',
+        attributes: ['username', 'realName', 'avatar'],
+      },
+    ],
+  });
   return new SuccessModel('获取成功', ret);
 };
 
 const createNotice = async params => {
-  const ret = await getPublisherName(params.publisherId);
-  params.createTime = new Date();
-  params.publisher = ret.result.realName;
   const n = await notice.create(params);
   return new SuccessModel('创建成功', n);
 };
