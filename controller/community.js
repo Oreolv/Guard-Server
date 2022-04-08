@@ -1,18 +1,31 @@
-const sequelize = require('../database/sequelize');
-const { QueryTypes } = require('sequelize');
-const community = require('../database/model/community');
-const users = require('../database/model/users');
+const { Op } = require('sequelize');
+const Community = require('../database/model/Community');
+const Users = require('../database/model/Users');
 const { SuccessModel, ErrorModel } = require('../model/response');
 
-const getCommunityList = async (name = '', realName = '') => {
-  const sql = `SELECT id, name, custodian, description, createTime FROM community WHERE (name like '%${name}%' OR '' = '${name}') AND ('' = '${realName}' OR custodian = '${realName}')`;
-  const ret = await sequelize.query(sql, { type: QueryTypes.SELECT });
+const getCommunityList = async (name = '', custodian = '') => {
+  const whereObject = {};
+  if (name) {
+    whereObject.name = { [Op.like]: `%${name}%` };
+  }
+  if (custodian) {
+    whereObject.custodian = custodian;
+  }
+  const ret = await Community.findAll({
+    include: [
+      {
+        model: Users,
+        as: 'custodianInfo',
+        attributes: ['username', 'realName', 'avatar'],
+      },
+    ],
+    where: whereObject,
+  });
   return new SuccessModel('获取成功', ret);
 };
 
 const createCommunity = async params => {
-  params.createTime = new Date();
-  await users.update(
+  await Users.update(
     { cname: params.name },
     {
       where: {
@@ -20,13 +33,12 @@ const createCommunity = async params => {
       },
     }
   );
-  params.custodian = params.realName;
-  await community.create(params);
+  await Community.create(params);
   return new SuccessModel('创建成功');
 };
 
 const removeCommunity = async id => {
-  const ret = await community.destroy({
+  const ret = await Community.destroy({
     where: {
       id: id,
     },
@@ -39,19 +51,12 @@ const removeCommunity = async id => {
 };
 
 const updateCommunity = async params => {
-  await community.update(
-    {
-      name: params.name,
-      custodian: params.realName,
-      description: params.description,
+  await Community.update(params, {
+    where: {
+      id: params.id,
     },
-    {
-      where: {
-        id: params.id,
-      },
-    }
-  );
-  await users.update(
+  });
+  await Users.update(
     { cname: params.name },
     {
       where: {

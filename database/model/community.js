@@ -1,29 +1,31 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
+const Users = require('./users');
 
-const community = sequelize.define(
+const Community = sequelize.define(
   'community',
   {
-    id: {
-      type: Sequelize.INTEGER(20),
-      primaryKey: true,
-      allowNull: false,
-      unique: true,
-      autoIncrement: true,
-    },
     name: Sequelize.STRING(20),
-    custodian: Sequelize.STRING(20),
+    custodian: Sequelize.INTEGER,
     description: Sequelize.STRING(20),
-    createTime: Sequelize.DATE(),
   },
   {
-    timestamps: false,
+    paranoid: true,
+    timestamps: true,
     freezeTableName: true,
   }
 );
 
+Community.belongsTo(Users, {
+  as: 'custodianInfo',
+  foreignKey: 'custodian',
+});
+Users.hasMany(Community, {
+  foreignKey: 'custodian',
+});
+
 (async () => {
-  await community.sync({ alter: true });
+  await Community.sync({ alter: true });
 })();
 
-module.exports = community;
+module.exports = Community;
