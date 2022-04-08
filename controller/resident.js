@@ -88,7 +88,7 @@ const getResidentInfo = async userId => {
 };
 
 const getResidentList = async (uname = '', uphone = '') => {
-  const sql = `SELECT * FROM resident WHERE (uname like '%${uname}%' OR '' = '${uname}') AND ('' = '${uphone}' OR uphone = '${uphone}')`;
+  const sql = `SELECT * FROM resident WHERE (uname like '%${uname}%' OR '' = '${uname}') AND (uphone like '%${uphone}%' OR '' = '${uphone}')`;
   const data = await sequelize.query(sql, { type: QueryTypes.SELECT });
   return new SuccessModel('查询成功', data);
 };
