@@ -1,5 +1,6 @@
 const notice = require('../database/model/notice');
 const { SuccessModel } = require('../model/response');
+const getPublisherName = require('./users').getUserInfo;
 
 const getNoticeList = async () => {
   const ret = await notice.findAll();
@@ -7,7 +8,9 @@ const getNoticeList = async () => {
 };
 
 const createNotice = async params => {
+  const ret = await getPublisherName(params.publisherId);
   params.createTime = new Date();
+  params.publisher = ret.result.realName;
   const n = await notice.create(params);
   return new SuccessModel('创建成功', n);
 };
