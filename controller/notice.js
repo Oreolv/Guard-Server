@@ -1,9 +1,9 @@
-const notice = require('../database/model/notice');
+const Notice = require('../database/model/Notice');
 const { SuccessModel } = require('../model/response');
-const getPublisherName = require('./users').getUserInfo;
 const Users = require('../database/model/users');
+
 const getNoticeList = async () => {
-  const ret = await notice.findAll({
+  const ret = await Notice.findAll({
     include: [
       {
         model: Users,
@@ -16,12 +16,12 @@ const getNoticeList = async () => {
 };
 
 const createNotice = async params => {
-  const n = await notice.create(params);
+  const n = await Notice.create(params);
   return new SuccessModel('创建成功', n);
 };
 
 const removeNotice = async id => {
-  const ret = await notice.destroy({
+  const ret = await Notice.destroy({
     where: {
       id: id,
     },
@@ -30,13 +30,11 @@ const removeNotice = async id => {
 };
 
 const updateNotice = async params => {
-  const n = await notice.findOne({
+  const n = await Notice.update(params, {
     where: {
       id: params.id,
     },
   });
-  n.set(params);
-  await n.save();
   return new SuccessModel('修改成功', n);
 };
 module.exports = { getNoticeList, createNotice, removeNotice, updateNotice };
