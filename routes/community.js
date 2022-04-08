@@ -1,26 +1,21 @@
 const router = require('koa-router')();
 const {
   getCommunityList,
-  createNewCommunity,
+  createCommunity,
   removeCommunity,
   updateCommunity,
 } = require('../controller/community');
 router.prefix('/community');
 
 router.get('/getCommunityList', async function (ctx, next) {
-  const { name, username } = ctx.query;
-  const result = await getCommunityList(name, username);
+  const { name, custodian } = ctx.query;
+  const result = await getCommunityList(name, custodian);
   ctx.body = result;
 });
 
-router.post('/createNewCommunity', async function (ctx, next) {
-  const { name, custodian, username, description } = ctx.request.body;
-  const result = await createNewCommunity(
-    name,
-    custodian,
-    username,
-    description
-  );
+router.post('/createCommunity', async function (ctx, next) {
+  const params = ctx.request.body;
+  const result = await createCommunity(params);
   ctx.body = result;
 });
 
@@ -31,14 +26,8 @@ router.delete('/removeCommunity', async function (ctx, next) {
 });
 
 router.put('/updateCommunity', async function (ctx, next) {
-  const { id, name, custodian, username, description } = ctx.request.body;
-  const result = await updateCommunity(
-    id,
-    name,
-    custodian,
-    username,
-    description
-  );
+  const params = ctx.request.body;
+  const result = await updateCommunity(params);
   ctx.body = result;
 });
 

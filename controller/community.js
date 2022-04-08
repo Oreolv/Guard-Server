@@ -4,27 +4,24 @@ const community = require('../database/model/community');
 const users = require('../database/model/users');
 const { SuccessModel, ErrorModel } = require('../model/response');
 
-const getCommunityList = async (name = '', username = '') => {
-  const sql = `SELECT id, name, custodian, description, createTime FROM community WHERE (name like '%${name}%' OR '' = '${name}') AND ('' = '${username}' OR custodian = '${username}')`;
+const getCommunityList = async (name = '', realName = '') => {
+  const sql = `SELECT id, name, custodian, description, createTime FROM community WHERE (name like '%${name}%' OR '' = '${name}') AND ('' = '${realName}' OR custodian = '${realName}')`;
   const ret = await sequelize.query(sql, { type: QueryTypes.SELECT });
   return new SuccessModel('获取成功', ret);
 };
 
-const createNewCommunity = async (name, custodian, username, description) => {
-  await community.create({
-    name,
-    custodian: username,
-    description,
-    createTime: new Date(),
-  });
+const createCommunity = async params => {
+  params.createTime = new Date();
   await users.update(
-    { cname: name },
+    { cname: params.name },
     {
       where: {
-        id: custodian,
+        id: params.custodian,
       },
     }
   );
+  params.custodian = params.realName;
+  await community.create(params);
   return new SuccessModel('创建成功');
 };
 
@@ -41,20 +38,24 @@ const removeCommunity = async id => {
   }
 };
 
-const updateCommunity = async (id, name, custodian, username, description) => {
-  const result = await community.update(
-    { name, custodian: username, description },
+const updateCommunity = async params => {
+  await community.update(
+    {
+      name: params.name,
+      custodian: params.realName,
+      description: params.description,
+    },
     {
       where: {
-        id: id,
+        id: params.id,
       },
     }
   );
   await users.update(
-    { cname: name },
+    { cname: params.name },
     {
       where: {
-        id: custodian,
+        id: params.custodian,
       },
     }
   );
@@ -65,7 +66,7 @@ const updateCommunity = async (id, name, custodian, username, description) => {
 
 module.exports = {
   getCommunityList,
-  createNewCommunity,
+  createCommunity,
   removeCommunity,
   updateCommunity,
 };
