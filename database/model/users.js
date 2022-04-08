@@ -14,9 +14,6 @@ const Users = sequelize.define(
     roleValue: Sequelize.STRING(20),
     avatar: Sequelize.STRING(255),
     uphone: Sequelize.STRING(11),
-    cname: Sequelize.STRING(20), // 所属社区
-    rname: Sequelize.STRING(20), // 所属小区
-    bname: Sequelize.STRING(20), // 所属楼栋
   },
   {
     timestamps: false,
