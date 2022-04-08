@@ -10,7 +10,8 @@ const {
 router.prefix('/resident');
 
 router.post('/login', async function (ctx, next) {
-  const { code, profile } = ctx.request.body;
+  const { code, profile, uphone } = ctx.request.body;
+  profile.uphone = uphone;
   const result = await login(code, profile);
   ctx.body = result;
 });
