@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
-
+const Role = require('./role.js');
 const Users = sequelize.define(
   'users',
   {
@@ -10,8 +10,10 @@ const Users = sequelize.define(
     },
     password: Sequelize.STRING(20),
     realName: Sequelize.STRING(8),
-    roleName: Sequelize.STRING(20),
-    roleValue: Sequelize.STRING(20),
+    roleId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     avatar: Sequelize.STRING(255),
     uphone: Sequelize.STRING(11),
   },
@@ -22,8 +24,18 @@ const Users = sequelize.define(
   }
 );
 
-(async () => {
-  await Users.sync({ alter: true });
-})();
+Users.belongsTo(Role, {
+  as: 'role',
+  foreignKey: 'roleId',
+});
+
+Role.hasMany(Users, {
+  foreignKey: 'roleId',
+});
+
+// 这里如果更新的话，会导致错误，暂时不更新
+// (async () => {
+//   await Users.sync({ alter: true });
+// })();
 
 module.exports = Users;
