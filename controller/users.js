@@ -57,13 +57,16 @@ const getUserInfo = async id => {
   return new SuccessModel('获取成功', ret);
 };
 
-const getUserList = async (username = '', roleValue = '') => {
+const getUserList = async params => {
   const userWhereObject = {};
-  if (username) {
-    userWhereObject.username = { [Op.like]: `%${username}%` };
+  if (params.username) {
+    userWhereObject.username = { [Op.like]: `%${params.username}%` };
   }
-  if (roleValue) {
-    userWhereObject.roleId = roleValue;
+  if (params.roleValue) {
+    userWhereObject.roleId = params.roleValue;
+  }
+  if (params.withGrid) {
+    userWhereObject.roleId = { [Op.notIn]: [4] };
   }
   const ret = await Users.findAll({
     include: [
