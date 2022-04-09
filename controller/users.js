@@ -1,6 +1,6 @@
 const sequelize = require('../database/sequelize');
 const { QueryTypes } = require('sequelize');
-const users = require('../database/model/users');
+const Users = require('../database/model/Users');
 const { SuccessModel, ErrorModel } = require('../model/response');
 const jsonwebtoken = require('jsonwebtoken');
 const { jwtSecret } = require('../config/secret');
@@ -9,7 +9,7 @@ const login = async (username, password) => {
   if (username === '' || password === '') {
     return new ErrorModel('账号或密码为空');
   }
-  const ret = await users.findOne({
+  const ret = await Users.findOne({
     where: { username: username },
   });
   if (!ret) {
@@ -20,7 +20,7 @@ const login = async (username, password) => {
       {
         id: ret.id,
         roleValue: ret.roleValue,
-        userType: 'users',
+        userType: 'Users',
       },
       jwtSecret,
       { expiresIn: '30d' } // zeit/ms规范
@@ -42,7 +42,7 @@ const login = async (username, password) => {
 };
 
 const getUserInfo = async id => {
-  const ret = await users.findOne({
+  const ret = await Users.findOne({
     where: { id: id },
   });
   const result = {
@@ -65,13 +65,13 @@ const getUserInfo = async id => {
 };
 
 const getUserList = async (username = '', roleValue = '') => {
-  const sql = `SELECT id as userId, username, realName, roleName, roleValue,uphone FROM users WHERE (username like '%${username}%' OR '' = '${username}') AND ('' = '${roleValue}' OR roleValue = '${roleValue}')`;
+  const sql = `SELECT id as userId, username, realName, roleName, roleValue,uphone FROM Users WHERE (username like '%${username}%' OR '' = '${username}') AND ('' = '${roleValue}' OR roleValue = '${roleValue}')`;
   const ret = await sequelize.query(sql, { type: QueryTypes.SELECT });
   return new SuccessModel('获取成功', ret);
 };
 
 const updateUserInfo = async (id, realName, uphone) => {
-  const result = await users.update(
+  const result = await Users.update(
     { realName: realName, uphone: uphone },
     {
       where: {
@@ -93,7 +93,7 @@ const updateUserSys = async (
   roleValue,
   uphone
 ) => {
-  const result = await users.update(
+  const result = await Users.update(
     { id, username, realName, roleName, roleValue, uphone },
     {
       where: {
@@ -105,7 +105,7 @@ const updateUserSys = async (
 };
 
 const updateUserAvatar = async (id, avatar) => {
-  const result = await users.update(
+  const result = await Users.update(
     { avatar: avatar },
     {
       where: {
@@ -119,13 +119,13 @@ const updateUserAvatar = async (id, avatar) => {
 };
 
 const updateUserPassword = async (id, passwordOld, passwordNew) => {
-  const ret = await users.findOne({
+  const ret = await Users.findOne({
     where: { id: id },
   });
   if (ret.password !== passwordOld) {
     return new ErrorModel('当前账户密码错误');
   }
-  const result = await users.update(
+  const result = await Users.update(
     { password: passwordNew },
     {
       where: {
@@ -145,7 +145,7 @@ const createNewUser = async (
   roleValue,
   uphone
 ) => {
-  const user = await users.create({
+  const user = await Users.create({
     username,
     password: '123456',
     realName,
@@ -157,7 +157,7 @@ const createNewUser = async (
 };
 
 const removeUser = async id => {
-  const ret = await users.destroy({
+  const ret = await Users.destroy({
     where: {
       id: id,
     },
