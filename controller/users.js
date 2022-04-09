@@ -1,6 +1,5 @@
-const sequelize = require('../database/sequelize');
-const { QueryTypes } = require('sequelize');
-const Users = require('../database/model/Users');
+const Users = require('../database/model/users');
+const Role = require('../database/model/role');
 const { SuccessModel, ErrorModel } = require('../model/response');
 const jsonwebtoken = require('jsonwebtoken');
 const { jwtSecret } = require('../config/secret');
@@ -10,7 +9,14 @@ const login = async (username, password) => {
     return new ErrorModel('账号或密码为空');
   }
   const ret = await Users.findOne({
-    where: { username: username },
+    where: { username },
+    include: [
+      {
+        model: Role,
+        as: 'roles',
+        attributes: ['id', 'roleName', 'roleValue'],
+      },
+    ],
   });
   if (!ret) {
     return new ErrorModel('用户不存在');
@@ -19,8 +25,8 @@ const login = async (username, password) => {
     const token = jsonwebtoken.sign(
       {
         id: ret.id,
-        roleValue: ret.roleValue,
-        userType: 'Users',
+        roleId: ret.roleId,
+        userType: 'users',
       },
       jwtSecret,
       { expiresIn: '30d' } // zeit/ms规范
@@ -28,12 +34,7 @@ const login = async (username, password) => {
     const result = {
       token: token,
       userId: ret.id,
-      role: [
-        {
-          roleName: ret.roleName,
-          roleValue: ret.roleValue,
-        },
-      ],
+      roles: ret.roles,
     };
     return new SuccessModel('登陆成功', result);
   } else {
@@ -44,63 +45,46 @@ const login = async (username, password) => {
 const getUserInfo = async id => {
   const ret = await Users.findOne({
     where: { id: id },
-  });
-  const result = {
-    userId: ret.id,
-    username: ret.username,
-    realName: ret.realName,
-    avatar: ret.avatar,
-    roles: [
+    include: [
       {
-        roleName: ret.roleName,
-        roleValue: ret.roleValue,
+        model: Role,
+        as: 'roles',
+        attributes: ['id', 'roleName', 'roleValue'],
       },
     ],
-    uphone: ret.uphone,
-    cname: ret.cname,
-    rname: ret.rname,
-    bname: ret.bname,
-  };
-  return new SuccessModel('获取成功', result);
-};
-
-const getUserList = async (username = '', roleValue = '') => {
-  const sql = `SELECT id as userId, username, realName, roleName, roleValue,uphone FROM Users WHERE (username like '%${username}%' OR '' = '${username}') AND ('' = '${roleValue}' OR roleValue = '${roleValue}')`;
-  const ret = await sequelize.query(sql, { type: QueryTypes.SELECT });
+  });
   return new SuccessModel('获取成功', ret);
 };
 
-const updateUserInfo = async (id, realName, uphone) => {
-  const result = await Users.update(
-    { realName: realName, uphone: uphone },
-    {
-      where: {
-        id: id,
+const getUserList = async (username = '', roleValue = '') => {
+  const ret = await Users.findAll({
+    include: [
+      {
+        model: Role,
+        as: 'roles',
+        attributes: ['id', 'roleName', 'roleValue'],
       },
-    }
-  );
-  return result[0]
-    ? new SuccessModel('用户信息修改成功')
-    : new ErrorModel('用户信息修改失败');
+    ],
+  });
+  return new SuccessModel('获取成功', ret);
+};
+
+const updateUserInfo = async params => {
+  const result = await Users.update(params, {
+    where: {
+      id: params.id,
+    },
+  });
+  return new SuccessModel('用户信息修改成功', result);
 };
 
 // 用户管理页面更改用户信息
-const updateUserSys = async (
-  id,
-  username,
-  realName,
-  roleName,
-  roleValue,
-  uphone
-) => {
-  const result = await Users.update(
-    { id, username, realName, roleName, roleValue, uphone },
-    {
-      where: {
-        id: id,
-      },
-    }
-  );
+const updateUserSys = async params => {
+  const result = await Users.update(params, {
+    where: {
+      id: params.id,
+    },
+  });
   return new SuccessModel('用户信息修改成功', result);
 };
 
@@ -138,21 +122,9 @@ const updateUserPassword = async (id, passwordOld, passwordNew) => {
     : new ErrorModel('用户密码修改失败');
 };
 
-const createNewUser = async (
-  username,
-  realName,
-  roleName,
-  roleValue,
-  uphone
-) => {
-  const user = await Users.create({
-    username,
-    password: '123456',
-    realName,
-    roleName,
-    roleValue,
-    uphone,
-  });
+const createNewUser = async params => {
+  params.password = '123456';
+  const user = await Users.create(params);
   return new SuccessModel('创建成功', user);
 };
 

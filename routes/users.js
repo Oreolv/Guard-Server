@@ -31,24 +31,16 @@ router.get('/getUserList', async function (ctx, next) {
 });
 
 router.put('/updateUserInfo', async function (ctx, next) {
-  const userId = ctx.user.id;
-  const { realName, uphone } = ctx.request.body;
-  const result = await updateUserInfo(userId, realName, uphone);
+  const parmas = ctx.request.body;
+  parmas.id = ctx.user.id;
+  const result = await updateUserInfo(parmas);
   ctx.body = result;
 });
 
 router.put('/updateUserSys', async function (ctx, next) {
   ctx.errorKey = '用户名';
-  const { id, username, realName, roleName, roleValue, uphone } =
-    ctx.request.body;
-  const result = await updateUserSys(
-    id,
-    username,
-    realName,
-    roleName,
-    roleValue,
-    uphone
-  );
+  const params = ctx.request.body;
+  const result = await updateUserSys(params);
   ctx.body = result;
 });
 
@@ -68,14 +60,8 @@ router.put('/updateUserPassword', async function (ctx, next) {
 
 router.post('/createNewUser', async function (ctx, next) {
   ctx.errorKey = '用户名';
-  const { username, realName, roleName, roleValue, uphone } = ctx.request.body;
-  const result = await createNewUser(
-    username,
-    realName,
-    roleName,
-    roleValue,
-    uphone
-  );
+  const params = ctx.request.body;
+  const result = await createNewUser(params);
   ctx.body = result;
 });
 

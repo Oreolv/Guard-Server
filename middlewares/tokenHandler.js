@@ -14,7 +14,7 @@ module.exports = function () {
           case 'users':
             ctx.user = {
               id: payload.id,
-              roleValue: payload.roleValue,
+              roleId: payload.roleId,
             };
             break;
           case 'resident':
