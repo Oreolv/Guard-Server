@@ -16,13 +16,14 @@ const Users = sequelize.define(
     uphone: Sequelize.STRING(11),
   },
   {
-    timestamps: false,
+    paranoid: true,
+    timestamps: true,
     freezeTableName: true,
   }
 );
 
-// (async () => {
-//   await users.sync({ alter: true });
-// })();
+(async () => {
+  await Users.sync({ alter: true });
+})();
 
 module.exports = Users;

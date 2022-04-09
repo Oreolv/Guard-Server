@@ -42,10 +42,10 @@ const resident = sequelize.define(
     administrator: Sequelize.STRING(20), // 负责人 关联users.id, 显示 users.name
     // 填报信息
     recorder: Sequelize.STRING(20), // 关联users.id, 显示 users.name
-    createTime: Sequelize.DATE(), // 填报日期
   },
   {
-    timestamps: false,
+    paranoid: true,
+    timestamps: true,
     freezeTableName: true,
   }
 );
