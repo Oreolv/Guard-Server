@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Users = require('../database/model/users');
 const Role = require('../database/model/role');
 const { SuccessModel, ErrorModel } = require('../model/response');
@@ -57,6 +58,13 @@ const getUserInfo = async id => {
 };
 
 const getUserList = async (username = '', roleValue = '') => {
+  const userWhereObject = {};
+  if (username) {
+    userWhereObject.username = { [Op.like]: `%${username}%` };
+  }
+  if (roleValue) {
+    userWhereObject.roleId = roleValue;
+  }
   const ret = await Users.findAll({
     include: [
       {
@@ -65,6 +73,7 @@ const getUserList = async (username = '', roleValue = '') => {
         attributes: ['id', 'roleName', 'roleValue'],
       },
     ],
+    where: userWhereObject,
   });
   return new SuccessModel('获取成功', ret);
 };
