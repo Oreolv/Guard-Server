@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
 
-const role = sequelize.define(
+const Role = sequelize.define(
   'role',
   {
     roleName: Sequelize.STRING(20),
@@ -19,7 +19,7 @@ const role = sequelize.define(
 );
 
 (async () => {
-  await role.sync({ alter: true });
+  await Role.sync({ alter: true });
 })();
 
-module.exports = role;
+module.exports = Role;
