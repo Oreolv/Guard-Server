@@ -18,8 +18,8 @@ const Role = sequelize.define(
   }
 );
 
-(async () => {
-  await Role.sync({ alter: true });
-})();
+// (async () => {
+//   await Role.sync({ alter: true });
+// })();
 
 module.exports = Role;
