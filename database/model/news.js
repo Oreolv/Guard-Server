@@ -4,14 +4,13 @@ const sequelize = require('../sequelize.js');
 const News = sequelize.define(
   'news',
   {
-    publishTime: Sequelize.DATE, // 新闻发布时间
+    newsId: Sequelize.STRING,
     title: Sequelize.STRING,
-    summary: Sequelize.STRING,
     content: Sequelize.TEXT,
+    cover: Sequelize.STRING,
     infoSource: Sequelize.STRING,
     sourceURL: Sequelize.STRING,
-    province: Sequelize.STRING,
-    provinceId: Sequelize.INTEGER,
+    publishTime: Sequelize.DATE,
   },
   {
     paranoid: true,
