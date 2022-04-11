@@ -6,6 +6,10 @@ const getNewsList = async params => {
     order: [['publishTime', 'DESC']],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
+    row: true,
+  });
+  ret.rows.forEach(i => {
+    i.mediaInfo = JSON.parse(i.mediaInfo);
   });
   return new SuccessModel('获取成功', ret);
 };
