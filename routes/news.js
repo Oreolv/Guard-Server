@@ -8,7 +8,10 @@ const {
 router.prefix('/news');
 
 router.get('/getNewsList', async function (ctx, next) {
-  const result = await getNewsList();
+  const params = ctx.query;
+  params.page = Number(params.page);
+  params.pageSize = Number(params.pageSize);
+  const result = await getNewsList(params);
   ctx.body = result;
 });
 

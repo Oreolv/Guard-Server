@@ -1,8 +1,12 @@
 const News = require('../database/model/News');
 const { SuccessModel } = require('../model/response');
 
-const getNewsList = async () => {
-  const ret = await News.findAll();
+const getNewsList = async params => {
+  const ret = await News.findAndCountAll({
+    order: [['publishTime', 'DESC']],
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
+  });
   return new SuccessModel('获取成功', ret);
 };
 
