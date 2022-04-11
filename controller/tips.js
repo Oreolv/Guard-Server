@@ -3,7 +3,8 @@ const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
 
 const getTipsList = async params => {
-  const ret = await Tips.findAll({
+  const ret = await Tips.findAndCountAll({
+    order: [['publishTime', 'DESC']],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
     include: [
