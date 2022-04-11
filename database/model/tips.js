@@ -9,6 +9,7 @@ const Tips = sequelize.define(
       type: Sequelize.STRING,
       unique: true,
     },
+    type: Sequelize.STRING,
     title: Sequelize.STRING,
     content: Sequelize.TEXT,
     source: Sequelize.TEXT,
