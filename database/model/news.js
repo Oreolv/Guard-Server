@@ -4,7 +4,10 @@ const sequelize = require('../sequelize.js');
 const News = sequelize.define(
   'news',
   {
-    newsId: Sequelize.STRING,
+    newsId: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
     title: Sequelize.STRING,
     content: Sequelize.TEXT,
     cover: Sequelize.STRING,
@@ -19,8 +22,8 @@ const News = sequelize.define(
   }
 );
 
-(async () => {
-  await News.sync({ alter: true });
-})();
+// (async () => {
+//   await News.sync({ alter: true });
+// })();
 
 module.exports = News;
