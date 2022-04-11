@@ -23,8 +23,10 @@ router.get('/getUserInfo', async function (ctx, next) {
 });
 
 router.get('/getResidentList', async function (ctx, next) {
-  const { uname, uphone } = ctx.query;
-  const result = await getResidentList(uname, uphone);
+  const params = ctx.query;
+  params.page = Number(params.page);
+  params.pageSize = Number(params.pageSize);
+  const result = await getResidentList(params);
   ctx.body = result;
 });
 

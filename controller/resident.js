@@ -1,8 +1,7 @@
 const axios = require('axios');
-const { QueryTypes } = require('sequelize');
+const { Op } = require('sequelize');
 const jsonwebtoken = require('jsonwebtoken');
-const sequelize = require('../database/sequelize');
-const resident = require('../database/model/resident');
+const Resident = require('../database/model/resident');
 const getRecorderName = require('./users').getUserInfo;
 const { weappSecret, jwtSecret } = require('../config/secret');
 const { SuccessModel, ErrorModel } = require('../model/response');
@@ -25,10 +24,10 @@ const login = async (code, profile) => {
   let userId;
   const openid = await getOpenID(code);
   if (openid) {
-    const data = await resident.findOne();
+    const data = await Resident.findOne();
     if (data == null) {
       // 新用户自动注册
-      const user = await resident.create({ openid: openid });
+      const user = await Resident.create({ openid: openid });
       userId = user.id;
       await updateUserProfile(userId, profile);
     } else {
@@ -49,7 +48,7 @@ const login = async (code, profile) => {
 };
 
 const getUserInfo = async userId => {
-  const data = await resident.findOne({
+  const data = await Resident.findOne({
     raw: true,
     where: { id: userId },
     attributes: [
@@ -81,20 +80,30 @@ const getUserInfo = async userId => {
 };
 
 const getResidentInfo = async userId => {
-  const data = await resident.findOne({
+  const data = await Resident.findOne({
     where: { id: userId },
   });
   return new SuccessModel('查询成功', data);
 };
 
-const getResidentList = async (uname = '', uphone = '') => {
-  const sql = `SELECT * FROM resident WHERE (uname like '%${uname}%' OR '' = '${uname}') AND (uphone like '%${uphone}%' OR '' = '${uphone}')`;
-  const data = await sequelize.query(sql, { type: QueryTypes.SELECT });
-  return new SuccessModel('查询成功', data);
+const getResidentList = async params => {
+  const residentWhereObject = {};
+  if (params.uname) {
+    residentWhereObject.uname = { [Op.like]: `%${params.uname}%` };
+  }
+  if (params.uphone) {
+    residentWhereObject.uphone = { [Op.like]: `%${params.uphone}%` };
+  }
+  const ret = await Resident.findAll({
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
+    where: residentWhereObject,
+  });
+  return new SuccessModel('查询成功', ret);
 };
 
 const updateUserProfile = async (userId, profile) => {
-  const user = await resident.findOne({
+  const user = await Resident.findOne({
     where: {
       id: userId,
     },
@@ -108,7 +117,7 @@ const updateResidentInfo = async (recorder, params) => {
   const ret = await getRecorderName(recorder);
   params.recorder = ret.result.realName;
   params.createTime = new Date();
-  await resident.update(params, {
+  await Resident.update(params, {
     where: {
       id: params.id,
     },

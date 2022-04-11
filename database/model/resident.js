@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
 
-const resident = sequelize.define(
+const Resident = sequelize.define(
   'resident',
   {
     id: {
@@ -51,7 +51,7 @@ const resident = sequelize.define(
 );
 
 (async () => {
-  await resident.sync({ alter: true });
+  await Resident.sync({ alter: true });
 })();
 
-module.exports = resident;
+module.exports = Resident;
