@@ -8,7 +8,7 @@ const News = sequelize.define(
     title: Sequelize.STRING,
     content: Sequelize.TEXT,
     cover: Sequelize.STRING,
-    mediaInfo: Sequelize.STRING,
+    mediaInfo: Sequelize.TEXT,
     sourceURL: Sequelize.STRING,
     publishTime: Sequelize.DATE,
   },
