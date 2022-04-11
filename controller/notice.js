@@ -2,8 +2,10 @@ const Notice = require('../database/model/Notice');
 const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
 
-const getNoticeList = async () => {
+const getNoticeList = async params => {
   const ret = await Notice.findAll({
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
     include: [
       {
         model: Users,

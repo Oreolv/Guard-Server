@@ -8,7 +8,10 @@ const {
 router.prefix('/notice');
 
 router.get('/getNoticeList', async function (ctx, next) {
-  const result = await getNoticeList();
+  const params = ctx.query;
+  params.page = Number(params.page);
+  params.pageSize = Number(params.pageSize);
+  const result = await getNoticeList(params);
   ctx.body = result;
 });
 
