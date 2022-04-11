@@ -11,6 +11,7 @@ const Tips = sequelize.define(
     },
     type: Sequelize.STRING,
     title: Sequelize.STRING,
+    summary: Sequelize.TEXT,
     content: Sequelize.TEXT('long'),
     source: Sequelize.TEXT,
     sourceURL: Sequelize.STRING,
