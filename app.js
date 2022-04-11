@@ -33,7 +33,7 @@ app.use(
   koajwt({
     secret: jwtSecret,
   }).unless({
-    path: [/\/login/, /\/covid\/all_data/],
+    path: [/\/login/, /\/covid\/all_data/, /\/news\/getNewsList/],
   })
 );
 
