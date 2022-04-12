@@ -1,6 +1,7 @@
 const Notice = require('../database/model/Notice');
 const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
+const Role = require('../database/model/role');
 
 const getNoticeList = async params => {
   const ret = await Notice.findAndCountAll({
@@ -10,6 +11,13 @@ const getNoticeList = async params => {
     include: [
       {
         model: Users,
+        include: [
+          {
+            model: Role,
+            as: 'roles',
+            attributes: ['id', 'roleName', 'roleValue'],
+          },
+        ],
         as: 'publisherInfo',
         attributes: ['username', 'realName', 'avatar'],
       },
