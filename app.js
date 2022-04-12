@@ -38,6 +38,7 @@ app.use(
       /\/covid\/all_data/,
       /\/news\/getNewsList/,
       /\/tips\/getTipsList/,
+      /\/risk/,
     ],
   })
 );
