@@ -3,7 +3,8 @@ const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
 
 const getNoticeList = async params => {
-  const ret = await Notice.findAll({
+  const ret = await Notice.findAndCountAll({
+    order: [['createdAt', 'DESC']],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
     include: [
