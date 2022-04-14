@@ -36,8 +36,8 @@ Users.hasMany(Tips, {
   foreignKey: 'publisher',
 });
 
-(async () => {
-  await Tips.sync({ alter: true });
-})();
+// (async () => {
+//   await Tips.sync({ alter: true });
+// })();
 
 module.exports = Tips;

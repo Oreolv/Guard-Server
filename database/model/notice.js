@@ -28,8 +28,8 @@ Users.hasMany(Notice, {
   foreignKey: 'publisher',
 });
 
-(async () => {
-  await Notice.sync({ alter: true });
-})();
+// (async () => {
+//   await Notice.sync({ alter: true });
+// })();
 
 module.exports = Notice;

@@ -50,8 +50,8 @@ const Resident = sequelize.define(
   }
 );
 
-(async () => {
-  await Resident.sync({ alter: true });
-})();
+// (async () => {
+//   await Resident.sync({ alter: true });
+// })();
 
 module.exports = Resident;

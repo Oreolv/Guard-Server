@@ -44,9 +44,9 @@ Users.belongsToMany(Community, {
   constraints: false,
 });
 
-(async () => {
-  await Community.sync({ alter: true });
-  await CommunityUser.sync({ alter: true });
-})();
+// (async () => {
+//   await Community.sync({ alter: true });
+//   await CommunityUser.sync({ alter: true });
+// })();
 
 module.exports = Community;
