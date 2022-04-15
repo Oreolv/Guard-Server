@@ -1,11 +1,17 @@
 const News = require('../database/model/News');
+const { Op } = require('sequelize');
 const { SuccessModel } = require('../model/response');
 
 const getNewsList = async params => {
+  const currentDate = new Date();
+  const threeDaysAgo = new Date(Number(currentDate) - 86400000 * 3);
   const ret = await News.findAndCountAll({
     order: [['publishTime', 'DESC']],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
+    where: {
+      publishTime: { [Op.between]: [threeDaysAgo, currentDate] },
+    },
     row: true,
   });
   ret.rows.forEach(i => {
