@@ -2,10 +2,12 @@ const Visitor = require('../database/model/visitor');
 const { SuccessModel } = require('../model/response');
 
 const getVisitorList = async params => {
+  const whereObj = {};
+  if (params.applicant) {
+    whereObj.applicant = params.applicant;
+  }
   const ret = await Visitor.findAll({
-    where: {
-      applicant: params.applicant,
-    },
+    where: whereObj,
   });
   return new SuccessModel('获取成功', ret);
 };
