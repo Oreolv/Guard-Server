@@ -1,5 +1,6 @@
 const Visitor = require('../database/model/visitor');
 const Users = require('../database/model/users');
+const Resident = require('../database/model/resident');
 const { SuccessModel } = require('../model/response');
 
 const getVisitorList = async params => {
@@ -12,6 +13,11 @@ const getVisitorList = async params => {
       model: Users,
       as: 'approverInfo',
       attributes: ['username', 'realName', 'avatar'],
+    };
+    include[1] = {
+      model: Resident,
+      as: 'applicantInfo',
+      attributes: ['uname', 'uphone', 'cname'],
     };
   }
   const ret = await Visitor.findAll({

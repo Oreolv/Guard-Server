@@ -1,12 +1,13 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
 const Users = require('./users');
+const Resident = require('./resident');
 
 const Visitor = sequelize.define(
   'visitor',
   {
     status: Sequelize.INTEGER, // 审批状态
-    applicant: Sequelize.STRING, // 申请人
+    applicant: Sequelize.INTEGER, // 申请人
     visitor: Sequelize.STRING, // 访客姓名
     foreign: Sequelize.INTEGER, // 访客是否为外地人
     address: Sequelize.STRING, // 访客来自哪里
@@ -26,12 +27,20 @@ Visitor.belongsTo(Users, {
   as: 'approverInfo',
   foreignKey: 'approver',
 });
+Visitor.belongsTo(Resident, {
+  as: 'applicantInfo',
+  foreignKey: 'applicant',
+});
+
 Users.hasMany(Visitor, {
   foreignKey: 'approver',
 });
+Resident.hasMany(Visitor, {
+  foreignKey: 'applicant',
+});
 
-(async () => {
-  await Visitor.sync({ alter: true });
-})();
+// (async () => {
+//   await Visitor.sync({ alter: true });
+// })();
 
 module.exports = Visitor;
