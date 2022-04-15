@@ -9,8 +9,8 @@ router.prefix('/community');
 
 router.get('/getCommunityList', async function (ctx, next) {
   const params = ctx.query;
-  params.page = Number(params.page);
-  params.pageSize = Number(params.pageSize);
+  params.page = Number(params.page) || 1;
+  params.pageSize = Number(params.pageSize) || 9999;
   const result = await getCommunityList(params);
   ctx.body = result;
 });
