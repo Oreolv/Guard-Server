@@ -20,8 +20,8 @@ const Visitor = sequelize.define(
   }
 );
 
-(async () => {
-  await Visitor.sync({ alter: true });
-})();
+// (async () => {
+//   await Visitor.sync({ alter: true });
+// })();
 
 module.exports = Visitor;

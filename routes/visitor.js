@@ -9,9 +9,7 @@ router.prefix('/visitor');
 
 router.get('/getVisitorList', async function (ctx, next) {
   const params = ctx.query;
-  params.applicant = ctx.userId;
-  params.page = Number(params.page);
-  params.pageSize = Number(params.pageSize);
+  params.applicant = ctx.user.userId;
   const result = await getVisitorList(params);
   ctx.body = result;
 });

@@ -2,17 +2,10 @@ const Visitor = require('../database/model/visitor');
 const { SuccessModel } = require('../model/response');
 
 const getVisitorList = async params => {
-  const ret = await Visitor.findAndCountAll({
-    order: [['publishTime', 'DESC']],
-    limit: params.pageSize,
-    offset: params.pageSize * (params.page - 1),
+  const ret = await Visitor.findAll({
     where: {
       applicant: params.applicant,
     },
-    row: true,
-  });
-  ret.rows.forEach(i => {
-    i.mediaInfo = JSON.parse(i.mediaInfo);
   });
   return new SuccessModel('获取成功', ret);
 };
