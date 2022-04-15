@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
+const Users = require('./users');
 
 const Visitor = sequelize.define(
   'visitor',
@@ -10,6 +11,7 @@ const Visitor = sequelize.define(
     foreign: Sequelize.INTEGER, // 访客是否为外地人
     address: Sequelize.STRING, // 访客来自哪里
     healthCode: Sequelize.STRING, // 健康码与行程码截图
+    approver: Sequelize.INTEGER,
     startTime: Sequelize.DATE,
     endTime: Sequelize.DATE,
   },
@@ -20,8 +22,16 @@ const Visitor = sequelize.define(
   }
 );
 
-// (async () => {
-//   await Visitor.sync({ alter: true });
-// })();
+Visitor.belongsTo(Users, {
+  as: 'approverInfo',
+  foreignKey: 'approver',
+});
+Users.hasMany(Visitor, {
+  foreignKey: 'approver',
+});
+
+(async () => {
+  await Visitor.sync({ alter: true });
+})();
 
 module.exports = Visitor;

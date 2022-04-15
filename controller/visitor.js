@@ -1,12 +1,21 @@
 const Visitor = require('../database/model/visitor');
+const Users = require('../database/model/users');
 const { SuccessModel } = require('../model/response');
 
 const getVisitorList = async params => {
+  const include = [];
   const whereObj = {};
   if (params.applicant) {
     whereObj.applicant = params.applicant;
+  } else {
+    include[0] = {
+      model: Users,
+      as: 'approverInfo',
+      attributes: ['username', 'realName', 'avatar'],
+    };
   }
   const ret = await Visitor.findAll({
+    include: include,
     where: whereObj,
   });
   return new SuccessModel('获取成功', ret);
