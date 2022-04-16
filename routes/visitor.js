@@ -1,6 +1,7 @@
 const router = require('koa-router')();
 const {
   getVisitorList,
+  getVisitorDetail,
   createVisitor,
   removeVisitor,
   updateVisitor,
@@ -11,6 +12,12 @@ router.get('/getVisitorList', async function (ctx, next) {
   const params = ctx.query;
   params.applicant = Number(ctx.user.userId);
   const result = await getVisitorList(params);
+  ctx.body = result;
+});
+
+router.get('/getVisitorDetail', async function (ctx, next) {
+  const { id } = ctx.query;
+  const result = await getVisitorDetail(id);
   ctx.body = result;
 });
 

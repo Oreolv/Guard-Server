@@ -3,26 +3,36 @@ const Users = require('../database/model/users');
 const Resident = require('../database/model/resident');
 const { SuccessModel } = require('../model/response');
 
+const include = [
+  {
+    model: Users,
+    as: 'approverInfo',
+    attributes: ['username', 'realName', 'avatar'],
+  },
+  {
+    model: Resident,
+    as: 'applicantInfo',
+    attributes: ['uname', 'uphone', 'cname'],
+  },
+];
+
 const getVisitorList = async params => {
-  const include = [];
   const whereObj = {};
   if (params.applicant) {
     whereObj.applicant = params.applicant;
-  } else {
-    include[0] = {
-      model: Users,
-      as: 'approverInfo',
-      attributes: ['username', 'realName', 'avatar'],
-    };
-    include[1] = {
-      model: Resident,
-      as: 'applicantInfo',
-      attributes: ['uname', 'uphone', 'cname'],
-    };
   }
+
   const ret = await Visitor.findAll({
     include: include,
     where: whereObj,
+  });
+  return new SuccessModel('获取成功', ret);
+};
+
+const getVisitorDetail = async id => {
+  const ret = await Visitor.findOne({
+    include: include,
+    where: { id },
   });
   return new SuccessModel('获取成功', ret);
 };
@@ -51,6 +61,7 @@ const updateVisitor = async params => {
 };
 module.exports = {
   getVisitorList,
+  getVisitorDetail,
   createVisitor,
   removeVisitor,
   updateVisitor,
