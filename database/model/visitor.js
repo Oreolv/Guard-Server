@@ -14,7 +14,7 @@ const Visitor = sequelize.define(
     goTo: Sequelize.STRING, // 访客去往哪里
     healthCode: Sequelize.STRING, // 健康码与行程码截图
     approver: Sequelize.INTEGER,
-    approveTime: Sequelize.STRING,
+    approveTime: Sequelize.DATE,
     description: Sequelize.STRING,
     startTime: Sequelize.DATE,
     endTime: Sequelize.DATE,
