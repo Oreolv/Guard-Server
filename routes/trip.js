@@ -25,7 +25,6 @@ router.post('/createTrip', async function (ctx, next) {
   const params = ctx.request.body;
   params.residentId = ctx.user.userId;
   params.status = 1;
-  params.healthCode = params.healthCode.join(',');
   const result = await createTrip(params);
   ctx.body = result;
 });
