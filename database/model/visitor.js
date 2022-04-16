@@ -15,6 +15,7 @@ const Visitor = sequelize.define(
     healthCode: Sequelize.STRING, // 健康码与行程码截图
     approver: Sequelize.INTEGER,
     approveTime: Sequelize.STRING,
+    description: Sequelize.STRING,
     startTime: Sequelize.DATE,
     endTime: Sequelize.DATE,
   },
