@@ -6,6 +6,7 @@ const Trip = sequelize.define(
   'trip',
   {
     residentId: Sequelize.INTEGER,
+    status: Sequelize.INTEGER,
     destination: Sequelize.STRING, // 目的地
     startTime: Sequelize.DATE,
     endTime: Sequelize.DATE,
@@ -29,8 +30,8 @@ Resident.hasMany(Trip, {
   foreignKey: 'residentId',
 });
 
-(async () => {
-  await Trip.sync({ alter: true });
-})();
+// (async () => {
+//   await Trip.sync({ alter: true });
+// })();
 
 module.exports = Trip;
