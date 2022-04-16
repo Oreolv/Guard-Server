@@ -12,8 +12,8 @@ const include = [
 
 const getTripList = async params => {
   const whereObj = {};
-  if (params.applicant) {
-    whereObj.applicant = params.applicant;
+  if (params.residentId) {
+    whereObj.residentId = params.residentId;
   }
 
   const ret = await Trip.findAll({
