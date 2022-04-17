@@ -1,19 +1,25 @@
 const Trip = require('../database/model/trip');
+const Users = require('../database/model/users');
 const Resident = require('../database/model/resident');
 const { SuccessModel } = require('../model/response');
 
 const include = [
   {
+    model: Users,
+    as: 'approverInfo',
+    attributes: ['username', 'realName', 'avatar'],
+  },
+  {
     model: Resident,
-    as: 'residentInfo',
+    as: 'applicantInfo',
     attributes: ['uname', 'uphone', 'cname'],
   },
 ];
 
 const getTripList = async params => {
   const whereObj = {};
-  if (params.residentId) {
-    whereObj.residentId = params.residentId;
+  if (params.applicant) {
+    whereObj.applicant = params.applicant;
   }
 
   const ret = await Trip.findAll({

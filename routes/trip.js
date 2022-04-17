@@ -10,7 +10,7 @@ router.prefix('/trip');
 
 router.get('/getTripList', async function (ctx, next) {
   const params = ctx.query;
-  params.residentId = Number(ctx.user.userId);
+  params.applicant = Number(ctx.user.userId);
   const result = await getTripList(params);
   ctx.body = result;
 });
@@ -23,7 +23,7 @@ router.get('/getTripDetail', async function (ctx, next) {
 
 router.post('/createTrip', async function (ctx, next) {
   const params = ctx.request.body;
-  params.residentId = ctx.user.userId;
+  params.applicant = ctx.user.userId;
   params.status = 1;
   const result = await createTrip(params);
   ctx.body = result;
