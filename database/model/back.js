@@ -14,7 +14,7 @@ const Back = sequelize.define(
     startTime: Sequelize.DATE,
     endTime: Sequelize.DATE,
     healthCode: Sequelize.STRING, // 健康码与行程码截图
-    comefrom: Sequelize.STRING,
+    comeFrom: Sequelize.STRING,
     vehicle: Sequelize.INTEGER(1), // 乘坐交通工具 0驾车1大巴2火车3高铁4飞机
     vehicleNo: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
     vehicleSeat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
