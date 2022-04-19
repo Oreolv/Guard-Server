@@ -25,7 +25,6 @@ router.post('/createAbnormal', async function (ctx, next) {
   const params = ctx.request.body;
   params.applicant = ctx.user.userId;
   params.status = 1;
-  params.healthCode = params.healthCode.join(',');
   const result = await createAbnormal(params);
   ctx.body = result;
 });
