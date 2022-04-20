@@ -12,7 +12,7 @@ const include = [
   {
     model: Resident,
     as: 'applicantInfo',
-    attributes: ['uname', 'uphone', 'cname'],
+    attributes: ['uname', 'uphone', 'cname', 'avatar'],
   },
 ];
 
@@ -22,7 +22,10 @@ const getSuggestionList = async params => {
     whereObj.applicant = params.applicant;
   }
 
-  const ret = await Suggestion.findAll({
+  const ret = await Suggestion.findAndCountAll({
+    order: [['createdAt', 'DESC']],
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
     include: include,
     where: whereObj,
   });

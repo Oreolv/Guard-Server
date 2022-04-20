@@ -37,8 +37,8 @@ Resident.hasMany(Suggestion, {
   foreignKey: 'applicant',
 });
 
-(async () => {
-  await Suggestion.sync({ alter: true });
-})();
+// (async () => {
+//   await Suggestion.sync({ alter: true });
+// })();
 
 module.exports = Suggestion;
