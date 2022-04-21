@@ -3,8 +3,8 @@ const sequelize = require('../sequelize.js');
 const Users = require('./users');
 const Resident = require('./resident');
 
-const Abnormal = sequelize.define(
-  'abnormal',
+const Health = sequelize.define(
+  'health',
   {
     status: Sequelize.INTEGER, // 审批状态
     applicant: Sequelize.INTEGER, // 申请人
@@ -24,24 +24,24 @@ const Abnormal = sequelize.define(
   }
 );
 
-Abnormal.belongsTo(Users, {
+Health.belongsTo(Users, {
   as: 'approverInfo',
   foreignKey: 'approver',
 });
-Abnormal.belongsTo(Resident, {
+Health.belongsTo(Resident, {
   as: 'applicantInfo',
   foreignKey: 'applicant',
 });
 
-Users.hasMany(Abnormal, {
+Users.hasMany(Health, {
   foreignKey: 'approver',
 });
-Resident.hasMany(Abnormal, {
+Resident.hasMany(Health, {
   foreignKey: 'applicant',
 });
 
 // (async () => {
-//   await Abnormal.sync({ alter: true });
+//   await Health.sync({ alter: true });
 // })();
 
-module.exports = Abnormal;
+module.exports = Health;

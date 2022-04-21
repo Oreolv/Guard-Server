@@ -1,4 +1,4 @@
-const Abnormal = require('../database/model/abnormal');
+const Health = require('../database/model/health');
 const Users = require('../database/model/users');
 const Resident = require('../database/model/resident');
 const { SuccessModel } = require('../model/response');
@@ -16,34 +16,34 @@ const include = [
   },
 ];
 
-const getAbnormalList = async params => {
+const getHealthList = async params => {
   const whereObj = {};
   if (params.applicant) {
     whereObj.applicant = params.applicant;
   }
 
-  const ret = await Abnormal.findAll({
+  const ret = await Health.findAll({
     include: include,
     where: whereObj,
   });
   return new SuccessModel('获取成功', ret);
 };
 
-const getAbnormalDetail = async id => {
-  const ret = await Abnormal.findOne({
+const getHealthDetail = async id => {
+  const ret = await Health.findOne({
     include: include,
     where: { id },
   });
   return new SuccessModel('获取成功', ret);
 };
 
-const createAbnormal = async params => {
-  const n = await Abnormal.create(params);
+const createHealth = async params => {
+  const n = await Health.create(params);
   return new SuccessModel('创建成功', n);
 };
 
-const removeAbnormal = async id => {
-  const ret = await Abnormal.destroy({
+const removeHealth = async id => {
+  const ret = await Health.destroy({
     where: {
       id: id,
     },
@@ -51,8 +51,8 @@ const removeAbnormal = async id => {
   return new SuccessModel('删除成功', ret);
 };
 
-const updateAbnormal = async params => {
-  const n = await Abnormal.update(params, {
+const updateHealth = async params => {
+  const n = await Health.update(params, {
     where: {
       id: params.id,
     },
@@ -60,9 +60,9 @@ const updateAbnormal = async params => {
   return new SuccessModel('修改成功', n);
 };
 module.exports = {
-  getAbnormalList,
-  getAbnormalDetail,
-  createAbnormal,
-  removeAbnormal,
-  updateAbnormal,
+  getHealthList,
+  getHealthDetail,
+  createHealth,
+  removeHealth,
+  updateHealth,
 };
