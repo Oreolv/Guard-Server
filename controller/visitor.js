@@ -22,7 +22,10 @@ const getVisitorList = async params => {
     whereObj.applicant = params.applicant;
   }
 
-  const ret = await Visitor.findAll({
+  const ret = await Visitor.findAndCountAll({
+    order: [['createdAt', 'DESC']],
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
     include: include,
     where: whereObj,
   });
