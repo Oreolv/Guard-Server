@@ -10,8 +10,7 @@ const Visitor = sequelize.define(
     applicant: Sequelize.INTEGER, // 申请人
     visitor: Sequelize.STRING, // 访客姓名
     foreign: Sequelize.INTEGER, // 访客是否为外地人
-    comeFrom: Sequelize.STRING, // 访客来自哪里
-    goTo: Sequelize.STRING, // 访客去往哪里
+    come_from: Sequelize.STRING, // 访客来自哪里
     healthCode: Sequelize.STRING, // 健康码与行程码截图
     approver: Sequelize.INTEGER,
     approveTime: Sequelize.DATE,
