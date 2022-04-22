@@ -16,8 +16,8 @@ const Visitor = sequelize.define(
     approver: Sequelize.INTEGER,
     approveTime: Sequelize.DATE,
     description: Sequelize.STRING,
-    startTime: Sequelize.DATE,
-    endTime: Sequelize.DATE,
+    startTime: Sequelize.DATEONLY,
+    endTime: Sequelize.DATEONLY,
   },
   {
     paranoid: true,
