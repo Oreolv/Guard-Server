@@ -12,7 +12,6 @@ router.get('/getSuggestionList', async function (ctx, next) {
   const params = ctx.query;
   params.page = Number(params.page);
   params.pageSize = Number(params.pageSize);
-  params.applicant = Number(ctx.user.userId);
   const result = await getSuggestionList(params);
   ctx.body = result;
 });

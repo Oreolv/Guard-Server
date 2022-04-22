@@ -17,17 +17,11 @@ const include = [
 ];
 
 const getSuggestionList = async params => {
-  const whereObj = {};
-  if (params.applicant) {
-    whereObj.applicant = params.applicant;
-  }
-
   const ret = await Suggestion.findAndCountAll({
     order: [['createdAt', 'DESC']],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
     include: include,
-    where: whereObj,
   });
   return new SuccessModel('获取成功', ret);
 };
