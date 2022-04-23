@@ -22,7 +22,10 @@ const getTripList = async params => {
     whereObj.applicant = params.applicant;
   }
 
-  const ret = await Trip.findAll({
+  const ret = await Trip.findAndCountAll({
+    order: [['createdAt', 'DESC']],
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
     include: include,
     where: whereObj,
   });
