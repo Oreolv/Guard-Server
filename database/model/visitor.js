@@ -11,12 +11,12 @@ const Visitor = sequelize.define(
     visitor: Sequelize.STRING, // 访客姓名
     foreign: Sequelize.INTEGER, // 访客是否为外地人
     come_from: Sequelize.STRING, // 访客来自哪里
-    healthCode: Sequelize.STRING, // 健康码与行程码截图
+    health_code: Sequelize.STRING, // 健康码与行程码截图
     approver: Sequelize.INTEGER,
-    approveTime: Sequelize.DATE,
+    approve_time: Sequelize.DATE,
     description: Sequelize.STRING,
-    startTime: Sequelize.DATEONLY,
-    endTime: Sequelize.DATEONLY,
+    start_time: Sequelize.DATEONLY,
+    end_time: Sequelize.DATEONLY,
   },
   {
     paranoid: true,

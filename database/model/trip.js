@@ -10,12 +10,12 @@ const Trip = sequelize.define(
     approver: Sequelize.INTEGER,
     status: Sequelize.INTEGER,
     destination: Sequelize.STRING, // 目的地
-    startTime: Sequelize.DATEONLY,
-    endTime: Sequelize.DATEONLY,
-    approveTime: Sequelize.DATE,
+    start_time: Sequelize.DATEONLY,
+    end_time: Sequelize.DATEONLY,
+    approve_time: Sequelize.DATE,
     vehicle: Sequelize.INTEGER(1), // 乘坐交通工具 0驾车1大巴2火车3高铁4飞机
-    vehicleNo: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
-    vehicleSeat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
+    vehicle_no: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
+    vehicle_seat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
   },
   {
     paranoid: true,

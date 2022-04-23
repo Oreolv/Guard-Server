@@ -7,7 +7,7 @@ const include = [
   {
     model: Users,
     as: 'approverInfo',
-    attributes: ['username', 'realName', 'avatar'],
+    attributes: ['username', 'real_name', 'avatar'],
   },
   {
     model: Resident,

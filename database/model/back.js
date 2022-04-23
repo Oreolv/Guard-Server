@@ -9,16 +9,16 @@ const Back = sequelize.define(
     status: Sequelize.INTEGER, // 审批状态
     applicant: Sequelize.INTEGER, // 申请人
     approver: Sequelize.INTEGER,
-    approveTime: Sequelize.DATE,
+    approve_time: Sequelize.DATE,
     description: Sequelize.STRING,
-    startTime: Sequelize.DATE,
-    endTime: Sequelize.DATE,
-    healthCode: Sequelize.STRING, // 健康码与行程码截图
+    start_time: Sequelize.DATE,
+    end_time: Sequelize.DATE,
+    health_code: Sequelize.STRING, // 健康码与行程码截图
     come_from: Sequelize.STRING,
     vehicle: Sequelize.INTEGER(1), // 乘坐交通工具 0驾车1大巴2火车3高铁4飞机
-    vehicleNo: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
-    vehicleSeat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
-    riskStatus: Sequelize.INTEGER(1), // 始发地风险等级
+    vehicle_no: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
+    vehicle_seat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
+    risk_status: Sequelize.INTEGER(1), // 始发地风险等级
   },
   {
     paranoid: true,

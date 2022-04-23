@@ -9,7 +9,7 @@ const Material = sequelize.define(
     status: Sequelize.INTEGER, // 审批状态
     applicant: Sequelize.INTEGER, // 申请人
     approver: Sequelize.INTEGER,
-    approveTime: Sequelize.DATE,
+    approve_time: Sequelize.DATE,
     description: Sequelize.STRING,
     type: Sequelize.STRING,
     content: Sequelize.STRING,

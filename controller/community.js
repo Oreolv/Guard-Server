@@ -15,7 +15,7 @@ const getCommunityList = async params => {
     include: [
       {
         model: Users,
-        attributes: ['id', 'username', 'realName'],
+        attributes: ['id', 'username', 'real_name'],
         through: { attributes: [] },
         // where: custodianWhereObject,
       },

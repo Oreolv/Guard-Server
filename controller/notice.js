@@ -15,11 +15,11 @@ const getNoticeList = async params => {
           {
             model: Role,
             as: 'roles',
-            attributes: ['id', 'roleName', 'roleValue'],
+            attributes: ['id', 'role_name', 'role_value'],
           },
         ],
         as: 'publisherInfo',
-        attributes: ['username', 'realName', 'avatar'],
+        attributes: ['username', 'real_name', 'avatar'],
       },
     ],
   });

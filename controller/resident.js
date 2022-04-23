@@ -53,7 +53,7 @@ const getUserInfo = async userId => {
     where: { id: userId },
     attributes: [
       'avatar',
-      'nickName',
+      'nick_name',
       'uname',
       'usex',
       'uphone',
@@ -62,20 +62,20 @@ const getUserInfo = async userId => {
       'bnum',
       'hnum',
       'hname',
-      'idCard',
+      'id_card',
       'company',
-      'foreignStatus',
-      'healthStatus',
-      'isolationStatus',
-      'accessStatus',
+      'foreign_status',
+      'health_status',
+      'isolation_status',
+      'access_status',
     ],
   });
   data.profile = {
     avatar: data.avatar,
-    nickName: data.nickName,
+    nick_name: data.nick_name,
   };
   delete data.avatar;
-  delete data.nickName;
+  delete data.nick_name;
   return new SuccessModel('查询成功', data);
 };
 
@@ -115,7 +115,7 @@ const updateUserProfile = async (userId, profile) => {
 
 const updateResidentInfo = async (recorder, params) => {
   const ret = await getRecorderName(recorder);
-  params.recorder = ret.result.realName;
+  params.recorder = ret.result.real_name;
   params.createTime = new Date();
   await Resident.update(params, {
     where: {

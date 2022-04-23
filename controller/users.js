@@ -15,7 +15,7 @@ const login = async (username, password) => {
       {
         model: Role,
         as: 'roles',
-        attributes: ['id', 'roleName', 'roleValue'],
+        attributes: ['id', 'role_name', 'role_value'],
       },
     ],
   });
@@ -26,7 +26,7 @@ const login = async (username, password) => {
     const token = jsonwebtoken.sign(
       {
         id: ret.id,
-        roleId: ret.roleId,
+        role_id: ret.role_id,
         userType: 'users',
       },
       jwtSecret,
@@ -50,7 +50,7 @@ const getUserInfo = async id => {
       {
         model: Role,
         as: 'roles',
-        attributes: ['id', 'roleName', 'roleValue'],
+        attributes: ['id', 'role_name', 'role_value'],
       },
     ],
   });
@@ -62,18 +62,18 @@ const getUserList = async params => {
   if (params.username) {
     userWhereObject.username = { [Op.like]: `%${params.username}%` };
   }
-  if (params.roleValue) {
-    userWhereObject.roleId = params.roleValue;
+  if (params.role_value) {
+    userWhereObject.role_id = params.role_value;
   }
   if (params.withGrid) {
-    userWhereObject.roleId = { [Op.notIn]: [4] };
+    userWhereObject.role_id = { [Op.notIn]: [4] };
   }
   const ret = await Users.findAll({
     include: [
       {
         model: Role,
         as: 'roles',
-        attributes: ['id', 'roleName', 'roleValue'],
+        attributes: ['id', 'role_name', 'role_value'],
       },
     ],
     where: userWhereObject,

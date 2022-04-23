@@ -40,7 +40,7 @@ router.put('/updateSuggestion', async function (ctx, next) {
   const { id } = ctx.user;
   const params = ctx.request.body;
   params.approver = id;
-  params.approveTime = new Date();
+  params.approve_time = new Date();
   const result = await updateSuggestion(params);
   ctx.body = result;
 });

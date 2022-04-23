@@ -39,7 +39,7 @@ router.put('/updateHealth', async function (ctx, next) {
   const { id } = ctx.user;
   const params = ctx.request.body;
   params.approver = id;
-  params.approveTime = new Date();
+  params.approve_time = new Date();
   const result = await updateHealth(params);
   ctx.body = result;
 });

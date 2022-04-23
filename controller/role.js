@@ -6,10 +6,10 @@ const getRoleList = async () => {
   return new SuccessModel('获取成功', ret);
 };
 
-const createNewRole = async (roleName, roleValue, description) => {
+const createNewRole = async (role_name, role_value, description) => {
   const roles = await role.create({
-    roleName: roleName,
-    roleValue: roleValue,
+    role_name: role_name,
+    role_value: role_value,
     description: description,
     createTime: new Date(),
   });
@@ -29,9 +29,9 @@ const removeRole = async id => {
   }
 };
 
-const updateRole = async (id, roleName, roleValue, description) => {
+const updateRole = async (id, role_name, role_value, description) => {
   const result = await role.update(
-    { roleName: roleName, roleValue: roleValue, description: description },
+    { role_name: role_name, role_value: role_value, description: description },
     {
       where: {
         id: id,

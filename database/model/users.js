@@ -9,8 +9,8 @@ const Users = sequelize.define(
       unique: true,
     },
     password: Sequelize.STRING(20),
-    realName: Sequelize.STRING(8),
-    roleId: {
+    real_name: Sequelize.STRING(8),
+    role_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
@@ -26,11 +26,11 @@ const Users = sequelize.define(
 
 Users.belongsTo(Role, {
   as: 'roles',
-  foreignKey: 'roleId',
+  foreignKey: 'role_id',
 });
 
 Role.hasMany(Users, {
-  foreignKey: 'roleId',
+  foreignKey: 'role_id',
 });
 
 // 这里如果更新的话，会导致错误，暂时不更新

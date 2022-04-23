@@ -27,7 +27,7 @@ router.post('/createVisitor', async function (ctx, next) {
   const params = ctx.request.body;
   params.applicant = ctx.user.userId;
   params.status = 1;
-  params.healthCode = params.healthCode.join(',');
+  params.health_code = params.health_code.join(',');
   const result = await createVisitor(params);
   ctx.body = result;
 });
@@ -42,7 +42,7 @@ router.put('/updateVisitor', async function (ctx, next) {
   const { id } = ctx.user;
   const params = ctx.request.body;
   params.approver = id;
-  params.approveTime = new Date();
+  params.approve_time = new Date();
   const result = await updateVisitor(params);
   ctx.body = result;
 });

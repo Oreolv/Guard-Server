@@ -8,14 +8,14 @@ const {
 router.prefix('/role');
 
 router.get('/getRoleList', async function (ctx, next) {
-  const result = await getRoleList(ctx.user.roleValue);
+  const result = await getRoleList(ctx.user.role_value);
   ctx.body = result;
 });
 
 router.post('/createNewRole', async function (ctx, next) {
   ctx.errorKey = '角色值';
-  const { roleName, roleValue, description } = ctx.request.body;
-  const result = await createNewRole(roleName, roleValue, description);
+  const { role_name, role_value, description } = ctx.request.body;
+  const result = await createNewRole(role_name, role_value, description);
   ctx.body = result;
 });
 
@@ -27,8 +27,8 @@ router.delete('/removeRole', async function (ctx, next) {
 
 router.put('/updateRole', async function (ctx, next) {
   ctx.errorKey = '角色值';
-  const { id, roleName, roleValue, description } = ctx.request.body;
-  const result = await updateRole(id, roleName, roleValue, description);
+  const { id, role_name, role_value, description } = ctx.request.body;
+  const result = await updateRole(id, role_name, role_value, description);
   ctx.body = result;
 });
 

@@ -18,7 +18,7 @@ const CommunityUser = sequelize.define(
   'community_user',
   {
     userId: Sequelize.INTEGER,
-    communityId: Sequelize.INTEGER,
+    community_id: Sequelize.INTEGER,
   },
   {
     timestamps: true,
@@ -31,7 +31,7 @@ Community.belongsToMany(Users, {
     model: CommunityUser,
     unique: false,
   },
-  foreignKey: 'communityId',
+  foreignKey: 'community_id',
   constraints: false,
 });
 

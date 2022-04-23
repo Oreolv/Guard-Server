@@ -11,7 +11,7 @@ const getTipsList = async params => {
       {
         model: Users,
         as: 'publisherInfo',
-        attributes: ['username', 'realName', 'avatar'],
+        attributes: ['username', 'real_name', 'avatar'],
       },
     ],
   });
