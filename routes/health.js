@@ -10,6 +10,8 @@ router.prefix('/health');
 
 router.get('/getHealthList', async function (ctx, next) {
   const params = ctx.query;
+  params.page = Number(params.page) || 1;
+  params.pageSize = Number(params.pageSize) || 9999;
   params.applicant = Number(ctx.user.userId);
   const result = await getHealthList(params);
   ctx.body = result;

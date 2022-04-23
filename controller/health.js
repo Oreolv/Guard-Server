@@ -22,7 +22,10 @@ const getHealthList = async params => {
     whereObj.applicant = params.applicant;
   }
 
-  const ret = await Health.findAll({
+  const ret = await Health.findAndCountAll({
+    order: [['createdAt', 'DESC']],
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
     include: include,
     where: whereObj,
   });
