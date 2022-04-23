@@ -22,7 +22,10 @@ const getBackList = async params => {
     whereObj.applicant = params.applicant;
   }
 
-  const ret = await Back.findAll({
+  const ret = await Back.findAndCountAll({
+    order: [['createdAt', 'DESC']],
+    limit: params.pageSize,
+    offset: params.pageSize * (params.page - 1),
     include: include,
     where: whereObj,
   });
