@@ -53,7 +53,7 @@ const getUserInfo = async userId => {
     where: { id: userId },
     attributes: [
       'avatar',
-      'nick_name',
+      'nickName',
       'uname',
       'usex',
       'uphone',
@@ -72,10 +72,10 @@ const getUserInfo = async userId => {
   });
   data.profile = {
     avatar: data.avatar,
-    nick_name: data.nick_name,
+    nickName: data.nickName,
   };
   delete data.avatar;
-  delete data.nick_name;
+  delete data.nickName;
   return new SuccessModel('查询成功', data);
 };
 

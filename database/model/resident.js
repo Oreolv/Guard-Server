@@ -14,7 +14,7 @@ const Resident = sequelize.define(
     // 微信信息区
     openid: Sequelize.STRING(32),
     avatar: Sequelize.TEXT('long'), // 微信头像
-    nick_name: Sequelize.STRING(20), // 微信昵称
+    nickName: Sequelize.STRING(20), // 微信昵称
     // 个人信息区
     uname: Sequelize.STRING(10), // 姓名
     usex: Sequelize.INTEGER(1), // 性别
