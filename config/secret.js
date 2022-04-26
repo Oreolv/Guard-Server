@@ -7,7 +7,7 @@ const qiniuSecret = {
 };
 const weappSecret = {
   appid: 'wxa1c02916c95fc722',
-  secret: '1ecc467c800c61cd7618100c8fbb76fb',
+  secret: '19ca05ad13a47b011f76bc2829876560',
 };
 
 module.exports = { jwtSecret, qiniuSecret, weappSecret };
