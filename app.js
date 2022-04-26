@@ -35,7 +35,7 @@ app.use(
   }).unless({
     path: [
       /\/login/,
-      /\/covid\/all_data/,
+      /\/covid/,
       /\/news\/getNewsList/,
       /\/tips\/getTipsList/,
       /\/risk/,
