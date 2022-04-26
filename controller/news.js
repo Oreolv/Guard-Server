@@ -1,4 +1,4 @@
-const News = require('../database/model/News');
+const News = require('../database/model/news');
 const { Op } = require('sequelize');
 const { SuccessModel } = require('../model/response');
 

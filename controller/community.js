@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const Users = require('../database/model/users');
-const Community = require('../database/model/Community');
+const Community = require('../database/model/community');
 const { SuccessModel } = require('../model/response');
 
 const getCommunityList = async params => {

@@ -1,4 +1,4 @@
-const Notice = require('../database/model/Notice');
+const Notice = require('../database/model/notice');
 const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
 const Role = require('../database/model/role');
