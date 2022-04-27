@@ -5,18 +5,23 @@ const { SuccessModel } = require('../model/response');
 const getNewsList = async params => {
   const currentDate = new Date();
   const threeDaysAgo = new Date(Number(currentDate) - 86400000 * 3);
+  const whereObj = {
+    publishTime: { [Op.between]: [threeDaysAgo, currentDate] },
+  };
+  if (params.keyword) {
+    whereObj.title = { [Op.like]: `%${params.keyword}%` };
+  }
   const ret = await News.findAndCountAll({
     order: [['publishTime', 'DESC']],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
-    where: {
-      publishTime: { [Op.between]: [threeDaysAgo, currentDate] },
-    },
+    where: whereObj,
     row: true,
   });
   ret.rows.forEach(i => {
     i.mediaInfo = JSON.parse(i.mediaInfo);
   });
+
   return new SuccessModel('获取成功', ret);
 };
 

@@ -1,8 +1,12 @@
+const { Op } = require('sequelize');
 const Tips = require('../database/model/tips');
 const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
 
 const getTipsList = async params => {
+  const whereObj = params.keyword
+    ? { content: { [Op.like]: `%${params.keyword}%` } }
+    : null;
   const ret = await Tips.findAndCountAll({
     order: [['publishTime', 'DESC']],
     limit: params.pageSize,
@@ -14,6 +18,7 @@ const getTipsList = async params => {
         attributes: ['username', 'real_name', 'avatar'],
       },
     ],
+    where: whereObj,
   });
   return new SuccessModel('获取成功', ret);
 };
