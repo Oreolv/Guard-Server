@@ -24,7 +24,9 @@ const login = async (code, profile) => {
   let userId;
   const openid = await getOpenID(code);
   if (openid) {
-    const data = await Resident.findOne();
+    const data = await Resident.findOne({
+      where: { openid },
+    });
     if (data == null) {
       // 新用户自动注册
       const user = await Resident.create({ openid: openid });
