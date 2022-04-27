@@ -15,12 +15,14 @@ module.exports = function () {
             ctx.user = {
               id: payload.id,
               role_id: payload.role_id,
+              userType: payload.userType,
             };
             break;
           case 'resident':
             ctx.user = {
               userId: payload.userId,
               openId: payload.openId,
+              userType: payload.userType,
             };
             break;
 
