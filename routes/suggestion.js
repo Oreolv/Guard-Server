@@ -12,6 +12,10 @@ router.get('/getSuggestionList', async function (ctx, next) {
   const params = ctx.query;
   params.page = Number(params.page);
   params.pageSize = Number(params.pageSize);
+  if (params.keyword) {
+    params.page = 1;
+    params.pageSize = 100;
+  }
   const result = await getSuggestionList(params);
   ctx.body = result;
 });

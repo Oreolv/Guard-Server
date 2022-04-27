@@ -1,9 +1,13 @@
+const { Op } = require('sequelize');
 const Notice = require('../database/model/notice');
 const { SuccessModel } = require('../model/response');
 const Users = require('../database/model/users');
 const Role = require('../database/model/role');
 
 const getNoticeList = async params => {
+  const whereObj = params.keyword
+    ? { content: { [Op.like]: `%${params.keyword}%` } }
+    : null;
   const ret = await Notice.findAndCountAll({
     order: [['createdAt', 'DESC']],
     limit: params.pageSize,
@@ -22,6 +26,7 @@ const getNoticeList = async params => {
         attributes: ['username', 'real_name', 'avatar'],
       },
     ],
+    where: whereObj,
   });
   return new SuccessModel('获取成功', ret);
 };
