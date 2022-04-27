@@ -13,7 +13,7 @@ const include = [
   {
     model: Resident,
     as: 'applicantInfo',
-    attributes: ['uname', 'uphone', 'cname', 'avatar'],
+    attributes: ['uname', 'uphone', 'cname', 'avatar', 'nickName'],
   },
 ];
 
