@@ -10,6 +10,7 @@ const koajwt = require('koa-jwt');
 const { jwtSecret } = require('./config/secret');
 const error = require('./middlewares/errorHandler');
 const token = require('./middlewares/tokenHandler');
+const userLog = require('./middlewares/logHandler');
 const path = require('path');
 const koaBody = require('koa-body');
 // error handler
@@ -52,6 +53,8 @@ app.use(
     },
   })
 );
+
+app.use(userLog());
 
 // logger
 app.use(async (ctx, next) => {
