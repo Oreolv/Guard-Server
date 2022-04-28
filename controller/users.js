@@ -25,7 +25,7 @@ const login = async (username, password) => {
   if (ret.password === password) {
     const token = jsonwebtoken.sign(
       {
-        id: ret.id,
+        userId: ret.id,
         role_id: ret.role_id,
         userType: 'users',
       },
@@ -43,9 +43,9 @@ const login = async (username, password) => {
   }
 };
 
-const getUserInfo = async id => {
+const getUserInfo = async userId => {
   const ret = await Users.findOne({
-    where: { id: id },
+    where: { id: userId },
     include: [
       {
         model: Role,

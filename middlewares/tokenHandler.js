@@ -13,7 +13,7 @@ module.exports = function () {
         switch (payload.userType) {
           case 'users':
             ctx.user = {
-              id: payload.id,
+              userId: payload.userId,
               role_id: payload.role_id,
               userType: payload.userType,
             };

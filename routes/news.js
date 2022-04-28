@@ -21,7 +21,7 @@ router.get('/getNewsList', async function (ctx, next) {
 
 router.post('/createNews', async function (ctx, next) {
   const params = ctx.request.body;
-  params.publisher = ctx.user.id;
+  params.publisher = ctx.user.userId;
   const result = await createNews(params);
   ctx.body = result;
 });

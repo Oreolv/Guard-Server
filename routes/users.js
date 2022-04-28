@@ -19,7 +19,7 @@ router.post('/login', async function (ctx, next) {
 });
 
 router.get('/getUserInfo', async function (ctx, next) {
-  const userId = ctx.user.id;
+  const userId = ctx.user.userId;
   const result = await getUserInfo(userId);
   ctx.body = result;
 });
@@ -32,7 +32,7 @@ router.get('/getUserList', async function (ctx, next) {
 
 router.put('/updateUserInfo', async function (ctx, next) {
   const parmas = ctx.request.body;
-  parmas.id = ctx.user.id;
+  parmas.id = ctx.user.userId;
   const result = await updateUserInfo(parmas);
   ctx.body = result;
 });
@@ -45,14 +45,14 @@ router.put('/updateUserSys', async function (ctx, next) {
 });
 
 router.put('/updateUserAvatar', async function (ctx, next) {
-  const userId = ctx.user.id;
+  const userId = ctx.user.userId;
   const { avatar } = ctx.request.body;
   const result = await updateUserAvatar(userId, avatar);
   ctx.body = result;
 });
 
 router.put('/updateUserPassword', async function (ctx, next) {
-  const userId = ctx.user.id;
+  const userId = ctx.user.userId;
   const { passwordOld, passwordNew } = ctx.request.body;
   const result = await updateUserPassword(userId, passwordOld, passwordNew);
   ctx.body = result;

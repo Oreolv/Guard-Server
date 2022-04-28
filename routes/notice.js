@@ -21,7 +21,7 @@ router.get('/getNoticeList', async function (ctx, next) {
 
 router.post('/createNotice', async function (ctx, next) {
   const params = ctx.request.body;
-  params.publisher = ctx.user.id;
+  params.publisher = ctx.user.userId;
   const result = await createNotice(params);
   ctx.body = result;
 });

@@ -21,7 +21,7 @@ router.get('/getTipsList', async function (ctx, next) {
 
 router.post('/createTips', async function (ctx, next) {
   const params = ctx.request.body;
-  params.publisher = ctx.user.id;
+  params.publisher = ctx.user.userId;
   const result = await createTips(params);
   ctx.body = result;
 });
