@@ -9,7 +9,7 @@ const getRlogList = async () => {
       {
         as: 'userInfo',
         model: Resident,
-        attributes: ['id', 'real_name', 'avatar'],
+        attributes: ['id', 'uname', 'avatar'],
       },
     ],
   });
