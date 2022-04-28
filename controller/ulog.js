@@ -4,6 +4,7 @@ const { SuccessModel } = require('../model/response');
 
 const getUlogList = async () => {
   const ret = await Ulog.findAll({
+    order: [['createdAt', 'DESC']],
     include: [
       {
         as: 'userInfo',

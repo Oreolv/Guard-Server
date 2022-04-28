@@ -4,6 +4,7 @@ const { SuccessModel } = require('../model/response');
 
 const getRlogList = async () => {
   const ret = await Rlog.findAll({
+    order: [['createdAt', 'DESC']],
     include: [
       {
         as: 'userInfo',
