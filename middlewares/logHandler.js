@@ -11,6 +11,10 @@ module.exports = function () {
     const url = ctx.url.includes('?') ? ctx.url.split('?')[0] : ctx.url;
     const group = url.split('/')[1];
     const members = url.split('/')[2];
+    if (members === 'login') {
+      await next();
+      return;
+    }
     const params = Object.assign(ctx.request.body || {}, ctx.query || {});
     const data = {
       userId: ctx.user.userId,
