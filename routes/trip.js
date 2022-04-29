@@ -12,7 +12,7 @@ router.get('/getTripList', async function (ctx, next) {
   const params = ctx.query;
   params.page = Number(params.page) || 1;
   params.pageSize = Number(params.pageSize) || 9999;
-  params.applicant = Number(ctx.user.userId);
+  params.applicant = ctx.user.openid ? Number(ctx.user.userId) : null;
   const result = await getTripList(params);
   ctx.body = result;
 });
