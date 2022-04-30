@@ -23,6 +23,7 @@ Village.belongsTo(Community, {
 });
 
 Community.hasMany(Village, {
+  as: 'children',
   foreignKey: 'community_id',
 });
 

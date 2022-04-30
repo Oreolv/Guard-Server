@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const Users = require('../database/model/users');
 const Community = require('../database/model/community');
 const { SuccessModel } = require('../model/response');
+const Village = require('../database/model/village');
 
 const getCommunityList = async params => {
   const nameWhereObject = params.name
@@ -18,6 +19,13 @@ const getCommunityList = async params => {
         attributes: ['id', 'username', 'real_name'],
         through: { attributes: [] },
         // where: custodianWhereObject,
+      },
+      {
+        as: 'children',
+        model: Village,
+        include: [
+          { model: Users, attributes: ['id', 'username', 'real_name'] },
+        ],
       },
     ],
     where: nameWhereObject,
