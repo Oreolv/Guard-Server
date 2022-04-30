@@ -68,6 +68,9 @@ const getUserList = async params => {
   if (params.withGrid) {
     userWhereObject.role_id = { [Op.notIn]: [4] };
   }
+  if (params.onlyGrid) {
+    userWhereObject.role_id = 4;
+  }
   const ret = await Users.findAll({
     include: [
       {
