@@ -1,6 +1,8 @@
 const { Op } = require('sequelize');
 const Users = require('../database/model/users');
 const Role = require('../database/model/role');
+const Village = require('../database/model/village');
+const Community = require('../database/model/community');
 const { SuccessModel, ErrorModel } = require('../model/response');
 const jsonwebtoken = require('jsonwebtoken');
 const { jwtSecret } = require('../config/secret');
@@ -17,16 +19,35 @@ const login = async (username, password) => {
         as: 'roles',
         attributes: ['id', 'role_name', 'role_value'],
       },
+      {
+        model: Village,
+        attributes: ['id', 'name'],
+      },
+      {
+        model: Community,
+        attributes: ['id', 'name'],
+      },
     ],
   });
   if (!ret) {
     return new ErrorModel('用户不存在');
   }
   if (ret.password === password) {
+    const cname = [];
+    const vname = [];
+    ret.villages.map(i => {
+      vname.push(i.name);
+    });
+    ret.communities.map(i => {
+      cname.push(i.name);
+    });
+
     const token = jsonwebtoken.sign(
       {
         userId: ret.id,
         role_id: ret.role_id,
+        cname,
+        vname,
         userType: 'users',
       },
       jwtSecret,
@@ -51,6 +72,14 @@ const getUserInfo = async userId => {
         model: Role,
         as: 'roles',
         attributes: ['id', 'role_name', 'role_value'],
+      },
+      {
+        model: Village,
+        attributes: ['id', 'name'],
+      },
+      {
+        model: Community,
+        attributes: ['id', 'name'],
       },
     ],
   });

@@ -15,6 +15,8 @@ module.exports = function () {
             ctx.user = {
               userId: payload.userId,
               role_id: payload.role_id,
+              cname: payload.cname,
+              vname: payload.vname,
               userType: payload.userType,
             };
             break;
