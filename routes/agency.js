@@ -13,6 +13,7 @@ router.get('/getAgencyList', async function (ctx, next) {
   params.page = Number(params.page);
   params.pageSize = Number(params.pageSize);
   params.applicant = ctx.user.openid ? Number(ctx.user.userId) : null;
+  params.user = ctx.user;
   const result = await getAgencyList(params);
   ctx.body = result;
 });

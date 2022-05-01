@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Visitor = require('../database/model/visitor');
 const Users = require('../database/model/users');
 const Resident = require('../database/model/resident');
@@ -12,7 +13,7 @@ const include = [
   {
     model: Resident,
     as: 'applicantInfo',
-    attributes: ['uname', 'uphone', 'cname'],
+    attributes: ['uname', 'uphone', 'cname', 'vname', 'avatar'],
   },
 ];
 
@@ -21,7 +22,16 @@ const getVisitorList = async params => {
   if (params.applicant) {
     whereObj.applicant = params.applicant;
   }
-
+  if (params.user.role_id === 4) {
+    include[1].where = {
+      vname: { [Op.or]: params.user.vname },
+    };
+  }
+  if (params.user.role_id === 3) {
+    include[1].where = {
+      cname: { [Op.or]: params.user.cname },
+    };
+  }
   const ret = await Visitor.findAndCountAll({
     order: [['createdAt', 'DESC']],
     limit: params.pageSize,

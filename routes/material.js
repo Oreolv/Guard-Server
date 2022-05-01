@@ -13,6 +13,7 @@ router.get('/getMaterialList', async function (ctx, next) {
   params.page = Number(params.page);
   params.pageSize = Number(params.pageSize);
   params.applicant = ctx.user.openid ? Number(ctx.user.userId) : null;
+  params.user = ctx.user;
   const result = await getMaterialList(params);
   ctx.body = result;
 });
