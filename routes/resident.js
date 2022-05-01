@@ -44,9 +44,9 @@ router.put('/updateUserProfile', async function (ctx, next) {
 });
 
 router.put('/updateResidentInfo', async function (ctx, next) {
-  const { id } = ctx.user;
+  const { userId } = ctx.user;
   const params = ctx.request.body;
-  const result = await updateResidentInfo(id, params);
+  const result = await updateResidentInfo(userId, params);
   ctx.body = result;
 });
 
