@@ -4,7 +4,7 @@ const {
   getRiskArea,
   getRiskAreaMerge,
 } = require('../controller/covid');
-router.prefix('/covid');
+router.prefix('/api/covid');
 
 router.get('/all_data', async function (ctx, next) {
   const result = await getAllData();

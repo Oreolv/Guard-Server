@@ -6,7 +6,7 @@ const {
   removeTrip,
   updateTrip,
 } = require('../controller/trip');
-router.prefix('/trip');
+router.prefix('/api/trip');
 
 router.get('/getTripList', async function (ctx, next) {
   const params = ctx.query;

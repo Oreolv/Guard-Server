@@ -5,7 +5,7 @@ const {
   removeNotice,
   updateNotice,
 } = require('../controller/notice');
-router.prefix('/notice');
+router.prefix('/api/notice');
 
 router.get('/getNoticeList', async function (ctx, next) {
   const params = ctx.query;

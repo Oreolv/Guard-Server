@@ -5,7 +5,7 @@ const {
   removeRole,
   updateRole,
 } = require('../controller/role');
-router.prefix('/role');
+router.prefix('/api/role');
 
 router.get('/getRoleList', async function (ctx, next) {
   const result = await getRoleList(ctx.user.role_value);

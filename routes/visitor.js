@@ -6,7 +6,7 @@ const {
   removeVisitor,
   updateVisitor,
 } = require('../controller/visitor');
-router.prefix('/visitor');
+router.prefix('/api/visitor');
 
 router.get('/getVisitorList', async function (ctx, next) {
   const params = ctx.query;

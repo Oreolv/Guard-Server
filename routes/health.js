@@ -6,7 +6,7 @@ const {
   removeHealth,
   updateHealth,
 } = require('../controller/health');
-router.prefix('/health');
+router.prefix('/api/health');
 
 router.get('/getHealthList', async function (ctx, next) {
   const params = ctx.query;

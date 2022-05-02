@@ -5,7 +5,7 @@ const {
   removeTips,
   updateTips,
 } = require('../controller/tips');
-router.prefix('/tips');
+router.prefix('/api/tips');
 
 router.get('/getTipsList', async function (ctx, next) {
   const params = ctx.query;

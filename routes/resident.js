@@ -7,7 +7,7 @@ const {
   updateUserProfile,
   updateResidentInfo,
 } = require('../controller/resident');
-router.prefix('/resident');
+router.prefix('/api/resident');
 
 router.post('/login', async function (ctx, next) {
   const { code, profile, uphone } = ctx.request.body;

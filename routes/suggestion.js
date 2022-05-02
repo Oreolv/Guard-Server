@@ -6,7 +6,7 @@ const {
   removeSuggestion,
   updateSuggestion,
 } = require('../controller/suggestion');
-router.prefix('/suggestion');
+router.prefix('/api/suggestion');
 
 router.get('/getSuggestionList', async function (ctx, next) {
   const params = ctx.query;

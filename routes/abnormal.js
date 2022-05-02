@@ -6,7 +6,7 @@ const {
   removeAbnormal,
   updateAbnormal,
 } = require('../controller/abnormal');
-router.prefix('/abnormal');
+router.prefix('/api/abnormal');
 
 router.get('/getAbnormalList', async function (ctx, next) {
   const params = ctx.query;

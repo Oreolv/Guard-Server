@@ -6,7 +6,7 @@ const {
   removeMaterial,
   updateMaterial,
 } = require('../controller/material');
-router.prefix('/material');
+router.prefix('/api/material');
 
 router.get('/getMaterialList', async function (ctx, next) {
   const params = ctx.query;

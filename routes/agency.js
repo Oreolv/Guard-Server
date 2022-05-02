@@ -6,7 +6,7 @@ const {
   removeAgency,
   updateAgency,
 } = require('../controller/agency');
-router.prefix('/agency');
+router.prefix('/api/agency');
 
 router.get('/getAgencyList', async function (ctx, next) {
   const params = ctx.query;

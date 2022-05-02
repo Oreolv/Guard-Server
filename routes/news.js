@@ -5,7 +5,7 @@ const {
   removeNews,
   updateNews,
 } = require('../controller/news');
-router.prefix('/news');
+router.prefix('/api/news');
 
 router.get('/getNewsList', async function (ctx, next) {
   const params = ctx.query;

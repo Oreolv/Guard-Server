@@ -5,7 +5,7 @@ const {
   removeCommunity,
   updateCommunity,
 } = require('../controller/community');
-router.prefix('/community');
+router.prefix('/api/community');
 
 router.get('/getCommunityList', async function (ctx, next) {
   const params = ctx.query;

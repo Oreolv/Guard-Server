@@ -6,7 +6,7 @@ const {
   removeBack,
   updateBack,
 } = require('../controller/back');
-router.prefix('/back');
+router.prefix('/api/back');
 
 router.get('/getBackList', async function (ctx, next) {
   const params = ctx.query;

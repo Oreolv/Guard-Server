@@ -5,7 +5,7 @@ const {
   removeVillage,
   updateVillage,
 } = require('../controller/village');
-router.prefix('/village');
+router.prefix('/api/village');
 
 router.get('/getVillageList', async function (ctx, next) {
   const params = ctx.query;

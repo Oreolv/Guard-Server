@@ -10,7 +10,7 @@ const {
   updateUserAvatar,
   updateUserPassword,
 } = require('../controller/users');
-router.prefix('/users');
+router.prefix('/api/users');
 
 router.post('/login', async function (ctx, next) {
   const { username, password } = ctx.request.body;

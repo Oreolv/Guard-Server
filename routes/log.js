@@ -2,7 +2,7 @@ const router = require('koa-router')();
 const { getRlogList } = require('../controller/rlog');
 const { getUlogList } = require('../controller/ulog');
 
-router.prefix('/log');
+router.prefix('/api/log');
 
 router.get('/getRlogList', async function (ctx, next) {
   const result = await getRlogList();

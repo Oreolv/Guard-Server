@@ -9,8 +9,8 @@ module.exports = function () {
       return;
     }
     const url = ctx.url.includes('?') ? ctx.url.split('?')[0] : ctx.url;
-    const group = url.split('/')[1];
-    const members = url.split('/')[2];
+    const group = url.split('/')[2];
+    const members = url.split('/')[3];
     const exclude = ['login', 'covid'];
     if (exclude.includes(members)) {
       await next();
