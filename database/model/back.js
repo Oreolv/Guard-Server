@@ -11,7 +11,6 @@ const Back = sequelize.define(
     approver: Sequelize.INTEGER,
     approve_time: Sequelize.DATE,
     description: Sequelize.STRING,
-    start_time: Sequelize.DATE,
     end_time: Sequelize.DATE,
     health_code: Sequelize.STRING, // 健康码与行程码截图
     come_from: Sequelize.STRING,
