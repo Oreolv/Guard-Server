@@ -17,7 +17,7 @@ module.exports = function () {
           ctx.body = new ErrorModel('数据库查询失败');
           break;
         case 'UnauthorizedError':
-          ctx.body = new ErrorModel('请先登陆');
+          ctx.body = new ErrorModel('登陆过期', 401);
           break;
         default:
           ctx.body = new ErrorModel(err.message);
