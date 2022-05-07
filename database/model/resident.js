@@ -4,44 +4,115 @@ const sequelize = require('../sequelize.js');
 const Resident = sequelize.define(
   'resident',
   {
-    id: {
-      type: Sequelize.INTEGER(20),
-      primaryKey: true,
-      allowNull: false,
-      unique: true,
-      autoIncrement: true,
-    },
     // 微信信息区
-    openid: Sequelize.STRING(32),
-    avatar: Sequelize.TEXT('long'), // 微信头像
-    nickName: Sequelize.STRING(20), // 微信昵称
+    openid: {
+      type: Sequelize.STRING(32),
+      comment: '居民微信openid，作为登陆唯一凭证',
+    },
+    avatar: {
+      type: Sequelize.STRING(180),
+      comment: '居民微信头像或自定义头像',
+    },
+    nickName: {
+      type: Sequelize.STRING(8),
+      comment: '居民微信昵称或自定义昵称',
+    },
     // 个人信息区
-    uname: Sequelize.STRING(10), // 姓名
-    usex: Sequelize.INTEGER(1), // 性别
-    uphone: Sequelize.STRING(11), // 手机号
-    cname: Sequelize.STRING(20), // 社区名称
-    vname: Sequelize.STRING(20), // 小区名称
-    bnum: Sequelize.STRING(5), // 楼栋号
-    hnum: Sequelize.STRING(5), // 单元号
-    hname: Sequelize.STRING(5), // 房间号
-    id_card: Sequelize.STRING(18), // 身份证号
-    company: Sequelize.STRING(20), // 工作单位：具体到街道
-    foreign_status: Sequelize.INTEGER(1), // 是否当地居民 0否1是
+    uname: {
+      type: Sequelize.STRING(15),
+      comment: '居民真实姓名',
+    },
+    usex: {
+      type: Sequelize.INTEGER(1),
+      comment: '居民性别，0男1女',
+    },
+    uphone: {
+      type: Sequelize.STRING(11),
+      comment: '居民手机号',
+    },
+    cname: {
+      type: Sequelize.STRING(10),
+      comment: '居民居住社区名',
+    },
+    vname: {
+      type: Sequelize.STRING(10),
+      comment: '居民居住小区名',
+    },
+    bnum: {
+      type: Sequelize.STRING(5),
+      comment: '居民家庭住址楼栋号',
+    },
+    hnum: {
+      type: Sequelize.STRING(5),
+      comment: '居民家庭住址单元号',
+    },
+    hname: {
+      type: Sequelize.STRING(5),
+      comment: '居民家庭住址房间号',
+    },
+    id_card: {
+      type: Sequelize.STRING(18),
+      comment: '居民身份证号',
+    },
+    company: {
+      type: Sequelize.STRING(25),
+      comment: '居民工作单位，具体到街道',
+    },
+    foreign_status: {
+      type: Sequelize.INTEGER(1),
+      comment: '是否当地居民 0否1是',
+    },
     // 外地旅居信息
-    trip: Sequelize.STRING(20), // 14天去往其他省市 无/市（以英文逗号分割）
-    risk_status: Sequelize.INTEGER(1), // 14天去往其他省市是否是中高风险地区 0否1是
-    vehicle: Sequelize.INTEGER(1), // 乘坐交通工具 0驾车1大巴2火车3高铁4飞机
-    vehicle_no: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
-    vehicle_seat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
+    trip: {
+      type: Sequelize.STRING(20),
+      comment: '14天去往其他省市 无/市（以英文逗号分割）',
+    },
+    risk_status: {
+      type: Sequelize.INTEGER(1),
+      comment: '14天去往其他省市是否是中高风险地区 0否1是',
+    },
+    vehicle: {
+      type: Sequelize.INTEGER(1),
+      comment: '乘坐交通工具 0驾车1大巴2火车3高铁4飞机',
+    },
+    vehicle_no: {
+      type: Sequelize.STRING(10),
+      comment: '乘坐车牌号/车次/航班号',
+    },
+    vehicle_seat: {
+      type: Sequelize.STRING(10),
+      comment: '乘坐座位号，自驾则填无',
+    },
     // 隔离信息
-    health_status: Sequelize.INTEGER(1), // 健康状态：0低风险 1中风险 2高风险
-    isolation_status: Sequelize.INTEGER(1), // 隔离状态：0否1是
-    access_status: Sequelize.INTEGER(1), // 限制出入：0否1是
-    isolation_start: Sequelize.DATE(), // 隔离开始时间
-    isolation_end: Sequelize.DATE(), // 隔离结束时间
-    administrator: Sequelize.STRING(20), // 负责人 关联users.id, 显示 users.name
+    health_status: {
+      type: Sequelize.INTEGER(1),
+      comment: '健康状态，0低风险1中风险2高风险',
+    },
+    isolation_status: {
+      type: Sequelize.INTEGER(1),
+      comment: '隔离状态，0否1是',
+    },
+    access_status: {
+      type: Sequelize.INTEGER(1),
+      comment: '限制出入，0否1是',
+    },
+    isolation_start: {
+      type: Sequelize.DATE(),
+      comment: '隔离开始时间',
+    },
+    isolation_end: {
+      type: Sequelize.DATE(),
+      comment: '隔离结束时间',
+    },
+    administrator: {
+      type: Sequelize.INTEGER,
+      comment: '隔离负责人',
+    },
     // 填报信息
-    recorder: Sequelize.STRING(20), // 关联users.id, 显示 users.name
+    recorder: {
+      type: Sequelize.INTEGER,
+      comment: '信息填报人',
+    },
   },
   {
     paranoid: true,
