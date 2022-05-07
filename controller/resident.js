@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Op } = require('sequelize');
 const jsonwebtoken = require('jsonwebtoken');
 const Resident = require('../database/model/resident');
-const getRecorderName = require('./users').getUserInfo;
+const Users = require('../database/model/users');
 const { weappSecret, jwtSecret } = require('../config/secret');
 const { SuccessModel, ErrorModel } = require('../model/response');
 
@@ -97,6 +97,18 @@ const getResidentList = async params => {
     residentWhereObject.uphone = { [Op.like]: `%${params.uphone}%` };
   }
   const ret = await Resident.findAll({
+    include: [
+      {
+        model: Users,
+        as: 'recorderInfo',
+        attributes: ['id', 'username', 'real_name'],
+      },
+      {
+        model: Users,
+        as: 'administratorInfo',
+        attributes: ['id', 'username', 'real_name'],
+      },
+    ],
     limit: params.pageSize,
     offset: params.pageSize * (params.page - 1),
     where: residentWhereObject,
@@ -115,10 +127,7 @@ const updateUserProfile = async (userId, profile) => {
   return new SuccessModel('修改成功', user);
 };
 
-const updateResidentInfo = async (recorder, params) => {
-  const ret = await getRecorderName(recorder);
-  params.recorder = ret.result.real_name;
-  params.createTime = new Date();
+const updateResidentInfo = async params => {
   await Resident.update(params, {
     where: {
       id: params.id,

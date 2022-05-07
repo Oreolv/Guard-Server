@@ -44,9 +44,12 @@ router.put('/updateUserProfile', async function (ctx, next) {
 });
 
 router.put('/updateResidentInfo', async function (ctx, next) {
-  const { userId } = ctx.user;
   const params = ctx.request.body;
-  const result = await updateResidentInfo(userId, params);
+  params.recorder = ctx.user.userId;
+  if (params.isolation_status) {
+    params.administrator = ctx.user.userId;
+  }
+  const result = await updateResidentInfo(params);
   ctx.body = result;
 });
 

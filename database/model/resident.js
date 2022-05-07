@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.js');
+const Users = require('./users');
 
 const Resident = sequelize.define(
   'resident',
@@ -120,6 +121,22 @@ const Resident = sequelize.define(
     freezeTableName: true,
   }
 );
+
+Resident.belongsTo(Users, {
+  as: 'administratorInfo',
+  foreignKey: 'administrator',
+});
+Users.hasMany(Resident, {
+  foreignKey: 'administrator',
+});
+
+Resident.belongsTo(Users, {
+  as: 'recorderInfo',
+  foreignKey: 'recorder',
+});
+Users.hasMany(Resident, {
+  foreignKey: 'recorder',
+});
 
 // (async () => {
 //   await Resident.sync({ alter: true });
