@@ -4,8 +4,14 @@ const Users = require('./users.js');
 const Community = sequelize.define(
   'community',
   {
-    name: Sequelize.STRING(20),
-    description: Sequelize.STRING(20),
+    name: {
+      type: Sequelize.STRING(15),
+      comment: '社区名称',
+    },
+    description: {
+      type: Sequelize.STRING(50),
+      comment: '社区备注',
+    },
   },
   {
     paranoid: true,
@@ -17,7 +23,7 @@ const Community = sequelize.define(
 const CommunityUser = sequelize.define(
   'community_user',
   {
-    userId: Sequelize.INTEGER,
+    user_id: Sequelize.INTEGER,
     community_id: Sequelize.INTEGER,
   },
   {
@@ -40,13 +46,13 @@ Users.belongsToMany(Community, {
     model: CommunityUser,
     unique: false,
   },
-  foreignKey: 'userId',
+  foreignKey: 'user_id',
   constraints: false,
 });
 
 // (async () => {
-//   await Community.sync({ alter: true });
-//   await CommunityUser.sync({ alter: true });
+//   await Community.sync({ force: true });
+//   await CommunityUser.sync({ force: true });
 // })();
 
 module.exports = Community;
