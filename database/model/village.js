@@ -6,10 +6,22 @@ const Users = require('./users.js');
 const Village = sequelize.define(
   'village',
   {
-    name: Sequelize.STRING,
-    grid_id: Sequelize.INTEGER,
-    community_id: Sequelize.INTEGER,
-    description: Sequelize.STRING,
+    name: {
+      type: Sequelize.STRING(15),
+      comment: '小区名称',
+    },
+    description: {
+      type: Sequelize.STRING(50),
+      comment: '小区备注',
+    },
+    grid_id: {
+      type: Sequelize.INTEGER,
+      comment: '管理网格员ID',
+    },
+    community_id: {
+      type: Sequelize.INTEGER,
+      comment: '所属社区ID',
+    },
   },
   {
     paranoid: true,
@@ -36,7 +48,7 @@ Users.hasMany(Village, {
 });
 
 // (async () => {
-//   await Village.sync({ alter: true });
+//   await Village.sync({ force: true });
 // })();
 
 module.exports = Village;
