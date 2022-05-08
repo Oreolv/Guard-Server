@@ -40,9 +40,9 @@ router.delete('/removeVisitor', async function (ctx, next) {
 });
 
 router.put('/updateVisitor', async function (ctx, next) {
-  const { id } = ctx.user;
+  const { userId } = ctx.user;
   const params = ctx.request.body;
-  params.approver = id;
+  params.approver = userId;
   params.approve_time = new Date();
   const result = await updateVisitor(params);
   ctx.body = result;
