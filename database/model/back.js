@@ -7,8 +7,8 @@ const Back = sequelize.define(
   'back',
   {
     come_from: {
-      type: Sequelize.STRING(),
-      comment: '到达时间',
+      type: Sequelize.STRING(10),
+      comment: '来自何地',
     },
     end_time: {
       type: Sequelize.DATE,
@@ -79,7 +79,7 @@ Resident.hasMany(Back, {
 });
 
 // (async () => {
-//   await Back.sync({ alter: true });
+//   await Back.sync({ force: true });
 // })();
 
 module.exports = Back;
