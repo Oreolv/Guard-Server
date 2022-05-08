@@ -6,16 +6,50 @@ const Users = require('./users');
 const Trip = sequelize.define(
   'trip',
   {
-    applicant: Sequelize.INTEGER,
-    approver: Sequelize.INTEGER,
-    status: Sequelize.INTEGER,
-    destination: Sequelize.STRING, // 目的地
-    start_time: Sequelize.DATEONLY,
-    end_time: Sequelize.DATEONLY,
-    approve_time: Sequelize.DATE,
-    vehicle: Sequelize.INTEGER(1), // 乘坐交通工具 0驾车1大巴2火车3高铁4飞机
-    vehicle_no: Sequelize.STRING(20), // 乘坐车牌号/车次/航班号
-    vehicle_seat: Sequelize.STRING(20), // 乘坐座位号，自驾则填无
+    destination: {
+      type: Sequelize.STRING(10),
+      comment: '行程目的地',
+    },
+    start_time: {
+      type: Sequelize.DATEONLY,
+      comment: '出发时间',
+    },
+    end_time: {
+      type: Sequelize.DATEONLY,
+      comment: '到达时间',
+    },
+    vehicle: {
+      type: Sequelize.INTEGER(1),
+      comment: '乘坐交通工具 0驾车1大巴2火车3高铁4飞机',
+    },
+    vehicle_no: {
+      type: Sequelize.STRING(10),
+      comment: '乘坐车牌号/车次/航班号',
+    },
+    vehicle_seat: {
+      type: Sequelize.STRING(10),
+      comment: '乘坐座位号，自驾则填无',
+    },
+    status: {
+      type: Sequelize.INTEGER(1),
+      comment: '审批状态',
+    },
+    applicant: {
+      type: Sequelize.INTEGER,
+      comment: '申请人',
+    },
+    approver: {
+      type: Sequelize.INTEGER,
+      comment: '审批人',
+    },
+    approve_time: {
+      type: Sequelize.DATE,
+      comment: '审批时间',
+    },
+    description: {
+      type: Sequelize.STRING(50),
+      comment: '审批意见',
+    },
   },
   {
     paranoid: true,
