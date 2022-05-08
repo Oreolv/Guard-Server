@@ -4,12 +4,19 @@ const sequelize = require('../sequelize.js');
 const Role = sequelize.define(
   'role',
   {
-    role_name: Sequelize.STRING(20),
-    role_value: {
-      type: Sequelize.STRING(20),
-      unique: true,
+    role_name: {
+      type: Sequelize.STRING(10),
+      comment: '角色名称',
     },
-    description: Sequelize.STRING(20),
+    role_value: {
+      type: Sequelize.STRING(10),
+      unique: true,
+      comment: '角色值',
+    },
+    description: {
+      type: Sequelize.STRING(50),
+      comment: '角色备注',
+    },
   },
   {
     paranoid: true,
@@ -19,7 +26,7 @@ const Role = sequelize.define(
 );
 
 // (async () => {
-//   await Role.sync({ alter: true });
+//   await Role.sync({ force: true });
 // })();
 
 module.exports = Role;
