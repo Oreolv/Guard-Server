@@ -5,17 +5,33 @@ const Users = sequelize.define(
   'users',
   {
     username: {
-      type: Sequelize.STRING(20),
+      type: Sequelize.STRING(10),
       unique: true,
+      comment: '用户名',
     },
-    password: Sequelize.STRING(20),
-    real_name: Sequelize.STRING(8),
+    password: {
+      type: Sequelize.STRING(16),
+      unique: true,
+      comment: '用户密码',
+    },
+    real_name: {
+      type: Sequelize.STRING(15),
+      unique: true,
+      comment: '用户真实姓名',
+    },
     role_id: {
       type: Sequelize.INTEGER,
+      comment: '用户角色ID',
       allowNull: false,
     },
-    avatar: Sequelize.STRING(255),
-    uphone: Sequelize.STRING(11),
+    avatar: {
+      type: Sequelize.STRING(180),
+      comment: '用户头像',
+    },
+    uphone: {
+      type: Sequelize.STRING(11),
+      comment: '用户手机号',
+    },
   },
   {
     paranoid: true,
@@ -33,9 +49,8 @@ Role.hasMany(Users, {
   foreignKey: 'role_id',
 });
 
-// 这里如果更新的话，会导致错误，暂时不更新
 // (async () => {
-//   await Users.sync({ alter: true });
+//   await Users.sync({ force: true });
 // })();
 
 module.exports = Users;
