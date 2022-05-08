@@ -6,20 +6,43 @@ const Tips = sequelize.define(
   'tips',
   {
     tipsId: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(15),
+      comment: '知识来源ID',
       unique: true,
     },
-    type: Sequelize.STRING,
-    title: Sequelize.STRING,
-    summary: Sequelize.TEXT,
-    content: Sequelize.TEXT('long'),
-    source: Sequelize.TEXT,
-    sourceURL: Sequelize.STRING,
+    type: {
+      type: Sequelize.STRING(10),
+      comment: '知识分类',
+    },
+    title: {
+      type: Sequelize.STRING(80),
+      comment: '知识标题',
+    },
+    summary: {
+      type: Sequelize.TEXT('tiny'),
+      comment: '知识摘要',
+    },
+    content: {
+      type: Sequelize.TEXT('medium'),
+      comment: '知识内容，HTML格式',
+    },
+    source: {
+      type: Sequelize.STRING(15),
+      comment: '知识来源媒体名称',
+    },
+    sourceURL: {
+      type: Sequelize.STRING(180),
+      comment: '知识来源链接',
+    },
     publisher: {
       type: Sequelize.INTEGER,
       allowNull: false,
+      comment: '知识发布人',
     },
-    publishTime: Sequelize.DATE,
+    publishTime: {
+      type: Sequelize.DATE,
+      comment: '知识发表时间',
+    },
   },
   {
     paranoid: true,
@@ -37,7 +60,7 @@ Users.hasMany(Tips, {
 });
 
 // (async () => {
-//   await Tips.sync({ alter: true });
+//   await Tips.sync({ force: true });
 // })();
 
 module.exports = Tips;
