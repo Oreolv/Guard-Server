@@ -6,13 +6,34 @@ const Resident = require('./resident');
 const Suggestion = sequelize.define(
   'suggestion',
   {
-    status: Sequelize.INTEGER, // 审批状态
-    applicant: Sequelize.INTEGER, // 申请人
-    approver: Sequelize.INTEGER,
-    approve_time: Sequelize.DATE,
-    description: Sequelize.STRING,
-    type: Sequelize.STRING,
-    content: Sequelize.STRING,
+    type: {
+      type: Sequelize.STRING(10),
+      comment: '意见类型',
+    },
+    content: {
+      type: Sequelize.STRING(200),
+      comment: '意见详细说明',
+    },
+    status: {
+      type: Sequelize.INTEGER(1),
+      comment: '审批状态',
+    },
+    applicant: {
+      type: Sequelize.INTEGER,
+      comment: '申请人',
+    },
+    approver: {
+      type: Sequelize.INTEGER,
+      comment: '审批人',
+    },
+    approve_time: {
+      type: Sequelize.DATE,
+      comment: '审批时间',
+    },
+    description: {
+      type: Sequelize.STRING(50),
+      comment: '审批意见',
+    },
   },
   {
     paranoid: true,
