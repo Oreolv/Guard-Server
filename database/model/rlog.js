@@ -19,7 +19,7 @@ const Rlog = sequelize.define(
       comment: '请求对象',
     },
     members: {
-      type: Sequelize.STRING(15),
+      type: Sequelize.STRING(25),
       comment: '请求函数',
     },
     params: {
@@ -43,8 +43,8 @@ Resident.hasMany(Rlog, {
   foreignKey: 'userId',
 });
 
-(async () => {
-  await Rlog.sync({ alter: true });
-})();
+// (async () => {
+//   await Rlog.sync({ alter: true });
+// })();
 
 module.exports = Rlog;

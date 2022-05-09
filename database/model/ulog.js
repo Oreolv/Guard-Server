@@ -19,7 +19,7 @@ const Ulog = sequelize.define(
       comment: '请求对象',
     },
     members: {
-      type: Sequelize.STRING(15),
+      type: Sequelize.STRING(25),
       comment: '请求函数',
     },
     params: {
