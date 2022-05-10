@@ -22,11 +22,11 @@ const News = sequelize.define(
       comment: '新闻封面图',
     },
     mediaInfo: {
-      type: Sequelize.STRING(250),
+      type: Sequelize.STRING(1000),
       comment: '新闻来源信息，包括头像、昵称、简介',
     },
     sourceURL: {
-      type: Sequelize.STRING(180),
+      type: Sequelize.STRING(500),
       comment: '新闻来源链接',
     },
     publishTime: {
