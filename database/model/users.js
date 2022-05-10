@@ -10,9 +10,14 @@ const Users = sequelize.define(
       comment: '用户名',
     },
     password: {
-      type: Sequelize.STRING(16),
+      type: Sequelize.STRING(60),
       unique: true,
       comment: '用户密码',
+    },
+    salt: {
+      type: Sequelize.STRING(36),
+      unique: true,
+      comment: '用户Salt',
     },
     real_name: {
       type: Sequelize.STRING(15),
@@ -50,7 +55,7 @@ Role.hasMany(Users, {
 });
 
 // (async () => {
-//   await Users.sync({ force: true });
+//   await Users.sync({ alter: true });
 // })();
 
 module.exports = Users;

@@ -6,6 +6,10 @@ const Community = require('../database/model/community');
 const { SuccessModel, ErrorModel } = require('../model/response');
 const jsonwebtoken = require('jsonwebtoken');
 const { jwtSecret } = require('../config/secret');
+const uuid = require('uuid');
+const bcrypt = require('bcrypt');
+
+const SALT_WORK_FACTOR = 10; //配置加盐的位数
 
 const login = async (username, password) => {
   if (username === '' || password === '') {
@@ -32,7 +36,7 @@ const login = async (username, password) => {
   if (!ret) {
     return new ErrorModel('用户不存在');
   }
-  if (ret.password === password) {
+  if (bcrypt.compareSync(password + ret.salt, ret.password)) {
     const cname = [];
     const vname = [];
     ret.villages.map(i => {
@@ -150,11 +154,13 @@ const updateUserPassword = async (id, passwordOld, passwordNew) => {
   const ret = await Users.findOne({
     where: { id: id },
   });
-  if (ret.password !== passwordOld) {
+  if (!bcrypt.compareSync(passwordOld + ret.salt, ret.password)) {
     return new ErrorModel('当前账户密码错误');
   }
+  const sl = await bcrypt.genSalt(SALT_WORK_FACTOR);
+  const hash = await bcrypt.hash(passwordNew + ret.salt, sl);
   const result = await Users.update(
-    { password: passwordNew },
+    { password: hash },
     {
       where: {
         id: id,
@@ -167,7 +173,11 @@ const updateUserPassword = async (id, passwordOld, passwordNew) => {
 };
 
 const createNewUser = async params => {
-  params.password = '123456';
+  const salt = uuid.v1();
+  const sl = await bcrypt.genSalt(SALT_WORK_FACTOR);
+  const hash = await bcrypt.hash('123456' + salt, sl);
+  params.password = hash;
+  params.salt = salt;
   const user = await Users.create(params);
   return new SuccessModel('创建成功', user);
 };
