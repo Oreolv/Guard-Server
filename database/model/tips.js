@@ -19,7 +19,7 @@ const Tips = sequelize.define(
       comment: '知识标题',
     },
     summary: {
-      type: Sequelize.TEXT('tiny'),
+      type: Sequelize.STRING(500),
       comment: '知识摘要',
     },
     content: {
