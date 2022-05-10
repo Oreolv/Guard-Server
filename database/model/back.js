@@ -7,7 +7,7 @@ const Back = sequelize.define(
   'back',
   {
     come_from: {
-      type: Sequelize.STRING(10),
+      type: Sequelize.STRING(30),
       comment: '来自何地',
     },
     end_time: {
