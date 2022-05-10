@@ -14,11 +14,6 @@ const Users = sequelize.define(
       unique: true,
       comment: '用户密码',
     },
-    salt: {
-      type: Sequelize.STRING(36),
-      unique: true,
-      comment: '用户Salt',
-    },
     real_name: {
       type: Sequelize.STRING(15),
       unique: true,
